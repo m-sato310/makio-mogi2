@@ -50,7 +50,7 @@
         </div>
     </form>
 
-    <div class="login-link">
+    <div class="button-link">
         <a href="{{ route('login') }}">ログインはこちら</a>
     </div>
 </div>
