@@ -12,6 +12,7 @@
     @yield('css')
 </head>
 
+@yield('scripts')
 <body>
     <header>
         <div class="header-inner">
@@ -20,55 +21,48 @@
             </a>
 
             <nav class="header-nav">
-                @guest
-                <!-- ログイン前はナビゲーションなし -->
+                {{-- @guest
 
                 @else
-                @if(Auth::guard('admin')->check())
-                <!-- 管理者ログイン時 -->
-                <ul>
-                    <!-- リンクは後で設定 -->
-                    <li><a href="">勤怠一覧</a></li>
-                    <li><a href="">スタッフ一覧</a></li>
-                    <li><a href="">申請一覧</a></li>
-                    <li>
-                        <form method="POST" action="">
-                            @csrf
-                            <button type="submit">ログアウト</button>
-                        </form>
-                    </li>
+                    @if(Auth::guard('admin')->check())
+                    <ul>
+                        <li><a href="">勤怠一覧</a></li>
+                        <li><a href="">スタッフ一覧</a></li>
+                        <li><a href="">申請一覧</a></li>
+                        <li>
+                            <form method="POST" action="">
+                                @csrf
+                                <button type="submit">ログアウト</button>
+                            </form>
+                        </li>
+                    </ul>
+                    @else
+                        @if(isset($workingStatus) && $workingStatus === 'done')
+                        <ul>
+                            <li><a href="">今月の出勤一覧</a></li>
+                            <li><a href="">申請一覧</a></li>
+                            <li>
+                                <form method="POST" action="{{ url('/logout') }}">
+                @csrf
+                <button type="submit">ログアウト</button>
+                </form>
+                </li>
                 </ul>
-                @else
-                @if(isset($workingStatus) && $workingStatus === 'done')
-                <!-- 一般ユーザー：退勤済の時 -->
+                @else --}}
                 <ul>
-                    <!-- リンクは後で設定 -->
-                    <li><a href="">今月の出勤一覧</a></li>
-                    <li><a href="">申請一覧</a></li>
-                    <li>
-                        <form method="POST" action="">
-                            @csrf
-                            <button type="submit">ログアウト</button>
-                        </form>
-                    </li>
-                </ul>
-                @else
-                <!-- 一般ユーザー：勤務外・出勤中・休憩中の時 -->
-                <ul>
-                    <!-- リンクは後で設定 -->
                     <li><a href="">勤怠</a></li>
                     <li><a href="">勤怠一覧</a></li>
                     <li><a href="">申請</a></li>
                     <li>
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ url('/logout') }}">
                             @csrf
-                            <button type="submit"></button>
+                            <button type="submit">ログアウト</button>
                         </form>
                     </li>
                 </ul>
+                {{-- @endif
                 @endif
-                @endif
-                @endguest
+                @endguest --}}
             </nav>
         </div>
     </header>

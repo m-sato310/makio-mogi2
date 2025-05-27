@@ -1,0 +1,120 @@
+.attendance-container {
+    max-width: 420px;
+    margin: 200px auto 0 auto;
+    background: #d9dadf;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 24px 0 rgba(0,0,0,0.04); */
+    padding: 32px 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.attendance-date {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.attendance-clock {
+    font-size: 50px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin: 30px 0 30px 0;
+    color: #222;
+
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+}
+
+.attendance-status {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 26px;
+}
+
+.status-label {
+    display: inline-block;
+    padding: 5px 24px;
+    border-radius: 30px;
+    background: #e9eaee;
+    color: #333;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.attendance-actions {
+    margin-top: 70px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.attendance-message {
+    font-size: 25px;
+    color: #000;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.attendance-errors,
+.attendance-flash {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.attendance-actions .btn,
+.attendance-actions button {
+    padding: 10px 0px;
+    font-size: 25px;
+    border-radius: 10px;
+    font-weight: 700;
+
+    min-width: 170px;          /* 最小幅を指定（例:170px。お好みで調整） */
+    box-sizing: border-box;    /* 必須 */
+    text-align: center;
+}
+
+.colon-dots {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 22px;
+    height: 50px;
+    margin: 0 4px;
+    vertical-align: middle;
+    position: relative;
+}
+.colon-dots .dot {
+    width: 9px;
+    height: 9px;
+    background: #222;
+    border-radius: 50%;
+    display: block;
+    margin: 6px 0;
+}
+
+.btn-secondary {
+    background: #fff;
+    color: #333;
+    font-weight: 700;
+    box-shadow: none;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    box-sizing: border-box;
+    padding: 16px 60px;
+}
+
+.btn-secondary:hover {
+    background: #f3f4f6;
+    color: #000;
+    border-color: #222;
+    opacity: 1;
+}

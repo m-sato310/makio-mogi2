@@ -21,7 +21,6 @@ class CreateCorrectionRequestsTable extends Migration
             $table->string('new_clock_out');
             $table->string('remarks',255);
             $table->string('approval_status');
-            $table->foreignId('approved_by')->nullable()->constrained('admins')->onDelete('set null');
             $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
