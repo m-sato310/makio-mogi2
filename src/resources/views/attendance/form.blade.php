@@ -25,21 +25,21 @@
         @if ($status === '勤務外')
         <form action="{{ route('attendance.start') }}" method="POST">
             @csrf
-            <button class="btn btn-primary" type="submit">出勤</button>
+            <button class="btn btn-primary js-confirm-clock-in" type="submit">出勤</button>
         </form>
         @elseif ($status === '出勤中')
         <form action="{{ route('attendance.finish') }}" method="POST">
             @csrf
-            <button class="btn btn-primary" type="submit">退勤</button>
+            <button class="btn btn-primary js-confirm-clock-out" type="submit">退勤</button>
         </form>
         <form action="{{ route('attendance.break_start') }}" method="POST">
             @csrf
-            <button class="btn btn-secondary" type="submit">休憩入</button>
+            <button class="btn btn-secondary js-confirm-break-start" type="submit">休憩入</button>
         </form>
         @elseif ($status === '休憩中')
         <form action="{{ route('attendance.break_end') }}" method="POST">
             @csrf
-            <button class="btn btn-secondary" type="submit">休憩戻</button>
+            <button class="btn btn-secondary js-confirm-break-end" type="submit">休憩戻</button>
         </form>
         @elseif ($status === '退勤済')
         <div class="attendance-message">お疲れ様でした。</div>
@@ -50,7 +50,7 @@
     <div class="attendance-errors">
         <ul>
             @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+            <div class="error">{{ $error }}</div>
             @endforeach
         </ul>
     </div>
@@ -70,11 +70,44 @@
         const now = new Date();
         const h = now.getHours().toString().padStart(2, '0');
         const m = now.getMinutes().toString().padStart(2, '0');
-        // document.getElementById('current-time').textContent = `${h}:${m}`;
-        document.getElementById('current-time').innerHTML =
-            `${h}<span class="colon-dots"><span class="dot"></span><span class="dot"></span></span>${m}`;
+        const elem = document.getElementById('current-time');
+        if (elem) {
+            elem.innerHTML =
+                `${h}<span class="colon-dots"><span class="dot"></span><span class="dot"></span></span>${m}`;
+        }
     }
-    setInterval(updateCurrentTime, 1000);
-    updateCurrentTime();
+    document.addEventListener('DOMContentLoaded', function() {
+        setInterval(updateCurrentTime, 1000);
+        updateCurrentTime();
+
+        document.querySelectorAll('.js-confirm-clock-in').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (!confirm('出勤を記録します。よろしいですか？')) {
+                    e.preventDefault();
+                }
+            });
+        });
+        document.querySelectorAll('.js-confirm-clock-out').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (!confirm('退勤を記録します。よろしいですか？')) {
+                    e.preventDefault();
+                }
+            });
+        });
+        document.querySelectorAll('.js-confirm-break-start').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (!confirm('休憩開始を記録します。よろしいですか？')) {
+                    e.preventDefault();
+                }
+            });
+        });
+        document.querySelectorAll('.js-confirm-break-end').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (!confirm('休憩終了を記録します。よろしいですか？')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    });
 </script>
 @endsection

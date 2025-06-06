@@ -14,8 +14,8 @@ class CorrectionRequest extends Model
         'user_id',
         'new_clock_in',
         'new_clock_out',
+        'remarks',
         'approval_status',
-        'approved_by',
         'approved_at',
     ];
 
@@ -27,11 +27,6 @@ class CorrectionRequest extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function approvedBy()
-    {
-        return $this->belongsTo(Admin::class, 'approved_by');
     }
 
     public function correctionBreaks()

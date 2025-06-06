@@ -16,9 +16,7 @@
 <body>
     <header>
         <div class="header-inner">
-            <a href="">
                 <img class="header-logo" src="{{ asset('image/logo.svg') }}" alt="COACHTECHロゴ">
-            </a>
 
             <nav class="header-nav">
                 {{-- @guest
@@ -50,9 +48,9 @@
                 </ul>
                 @else --}}
                 <ul>
-                    <li><a href="">勤怠</a></li>
-                    <li><a href="">勤怠一覧</a></li>
-                    <li><a href="">申請</a></li>
+                    <li><a href="{{ route('attendance.form') }}">勤怠</a></li>
+                    <li><a href="{{ route('attendance.list') }}">勤怠一覧</a></li>
+                    <li><a href="{{ route('correction_request.list') }}">申請</a></li>
                     <li>
                         <form method="POST" action="{{ url('/logout') }}">
                             @csrf

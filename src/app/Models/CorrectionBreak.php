@@ -11,8 +11,8 @@ class CorrectionBreak extends Model
 
     protected $fillable = [
         'correction_request_id',
-        'break_start',
-        'break_end',
+        'new_break_start',
+        'new_break_end',
     ];
 
     public function correction_request()

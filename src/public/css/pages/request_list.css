@@ -1,0 +1,111 @@
+.request-list-title-container {
+    max-width: 900px;
+    margin: 60px auto 0 auto;
+}
+
+.request-list-title-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.title-bar {
+    width: 8px;
+    height: 40px;
+    background: #000;
+    display: inline-block;
+}
+
+.request-list-title-text {
+    font-size: 30px;
+    font-weight: 700;
+    color: #000;
+}
+
+.request-list-tab-container {
+    display: flex;
+    justify-content: left;
+    align-items: flex-end;
+    gap: 100px;
+    margin: 35px auto 0 auto;
+    padding-left: 40px;
+    max-width: 900px;
+    min-height: 46px;
+    position: relative;
+}
+
+.tab-btn {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding: 7px 26px 10px 26px;
+    text-decoration: none;
+    letter-spacing: 2.4px;
+    position: relative;
+}
+
+.tab-btn.active {
+    color: #000;
+    font-weight: 700;
+}
+
+.tab-underline {
+    border:none;
+    border-top: 1px solid #000;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 35px auto;
+    position: relative;
+}
+
+.request-list-table-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.request-list-table {
+    width: 100%;
+    padding: 10px 0px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: 700;
+    box-sizing: border-box;
+}
+
+.request-list-table th {
+    width: calc(100% / 6);
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 3px solid #e1e1e1;
+    letter-spacing: 2.4px;
+    line-height: 16px;
+    color: #737373;
+}
+
+.request-list-table td {
+    border-bottom: 2px solid #e1e1e1;
+    text-align: center;
+    padding: 16px 0;
+    color: #737373;
+    line-height: 16px;
+    letter-spacing: 2.4px;
+}
+
+.request-list-table td.date-cell {
+    letter-spacing: 0;
+}
+
+.detail-link {
+    color: #000;
+    text-decoration: none;
+}
