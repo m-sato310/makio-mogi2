@@ -4,7 +4,9 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CorrectionRequestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::get('/admin/login', function (Request $request) {
+    return app(AuthenticatedSessionController::class)->create($request);
+})->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.post');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'showAttendanceForm'])->name('attendance.form');

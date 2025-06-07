@@ -12,18 +12,16 @@
 
 .title-bar {
     display: inline-block;
-    width: 7px;
-    height: 32px;
+    width: 8px;
+    height: 40px;
     background: #000;
     margin-right: 6px;
 }
 
 .attendance-detail-title-text {
-    font-size: 26px;
-    font-weight: 900;
+    font-size: 30px;
+    font-weight: 700;
     color: #000;
-    letter-spacing: 1.2px;
-    line-height: 1;
 }
 
 .attendance-detail-form-container {
@@ -62,10 +60,10 @@
     /* display: inline-block; */
     flex: 1;
     /* min-width: 98px; */
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     color: #737373;
-    letter-spacing: 1px;
+    letter-spacing: 2.4px;
     text-align: left;
 }
 

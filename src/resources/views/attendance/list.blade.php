@@ -14,7 +14,6 @@
     </div>
 </div>
 
-<!-- 月切替行（左端「←前月」、中央年月、右端「翌月→」） -->
 {{-- 月切り替え用の白コンテナ --}}
 <div class="month-switcher-container">
     <div class="month-switcher-row">
@@ -33,7 +32,6 @@
     </div>
 </div>
 
-<!-- 勤怠テーブル -->
 <div class="attendance-table-container">
     <table class="attendance-table">
         <thead>

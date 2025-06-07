@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'ログイン')
+@section('title', $pageTitle ?? 'ログイン')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/pages/auth.css') }}">
@@ -8,9 +8,9 @@
 
 @section('content')
 <div class="auth-container">
-    <h1 class="auth-title">ログイン</h1>
+    <h1 class="auth-title">{{ $heading ?? 'ログイン' }}</h1>
 
-    <form method="POST" action="{{ route('login.post') }}" novalidate>
+    <form method="POST" action="{{ $loginRoute ?? route('login.post') }}" novalidate>
         @csrf
 
         <div class="form-group">
@@ -30,12 +30,14 @@
         </div>
 
         <div class="form-group">
-            <button class="btn-primary" type="submit">ログインする</button>
+            <button class="btn-primary" type="submit">{{ $buttonLabel ?? 'ログインする' }}</button>
         </div>
     </form>
 
+    @if (!($hideRegisterLink ?? false))
     <div class="button-link">
         <a href="{{ url('/register') }}">会員登録はこちら</a>
     </div>
+    @endif
 </div>
 @endsection

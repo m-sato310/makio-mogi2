@@ -38,8 +38,34 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.register');
         });
 
-        Fortify::loginView(function () {
-            return view('auth.login');
+        Fortify::loginView(function (Request $request) {
+            if ($request->is('admin/login')) {
+                $pageTitle = '管理者ログイン';
+                $heading = '管理者ログイン';
+                $loginRoute = route('admin.login.post');
+                $buttonLabel = '管理者ログインする';
+                $hideRegisterLink = true;
+
+                return view('auth.login', compact(
+                    'pageTitle',
+                    'heading',
+                    'loginRoute',
+                    'buttonLabel',
+                    'hideRegisterLink'
+                ));
+            }
+
+            $pageTitle = 'ログイン';
+            $heading = 'ログイン';
+            $loginRoute = route('login.post');
+            $buttonLabel = 'ログインする';
+
+            return view('auth.login', compact(
+                'pageTitle',
+                'heading',
+                'loginRoute',
+                'buttonLabel'
+            ));
         });
 
         RateLimiter::for('login', function (Request $request) {
