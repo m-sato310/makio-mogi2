@@ -23,10 +23,10 @@ class UserSeeder extends Seeder
             ['name' => '山本勝太郎', 'email' => 'shotaro@example.com'],
         ];
 
-        foreach ($users as $u) {
+        foreach ($users as $user) {
             User::create([
-                'name' => $u['name'],
-                'email' => $u['email'],
+                'name' => $user['name'],
+                'email' => $user['email'],
                 'password' => Hash::make('testpass'),
                 'is_admin' => false,
             ]);

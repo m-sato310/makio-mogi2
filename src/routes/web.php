@@ -21,10 +21,6 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-Route::get('/admin/login', function (Request $request) {
-    return app(AuthenticatedSessionController::class)->create($request);
-})->name('admin.login');
-Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.post');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'showAttendanceForm'])->name('attendance.form');
@@ -36,4 +32,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/attendance/{id}', [AttendanceController::class, 'showMyAttendanceDetail'])->name('attendance.detail');
     Route::post('/attendance/{id}/correction', [CorrectionRequestController::class, 'applyCorrectionRequest'])->name('attendance.correction');
     Route::get('/stamp_correction_request/list', [CorrectionRequestController::class, 'listMyApplications'])->name('correction_request.list');
+});
+
+Route::get('/admin/login', function (Request $request) {
+    return app(AuthenticatedSessionController::class)->create($request);
+})->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.post');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+
 });

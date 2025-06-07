@@ -13,54 +13,55 @@
 </head>
 
 @yield('scripts')
+
 <body>
     <header>
         <div class="header-inner">
-                <img class="header-logo" src="{{ asset('image/logo.svg') }}" alt="COACHTECHロゴ">
+            <img class="header-logo" src="{{ asset('image/logo.svg') }}" alt="COACHTECHロゴ">
 
             <nav class="header-nav">
-                {{-- @guest
+                @guest
 
                 @else
-                    @if(Auth::guard('admin')->check())
+                    @if(Auth::user()->is_admin)
                     <ul>
                         <li><a href="">勤怠一覧</a></li>
                         <li><a href="">スタッフ一覧</a></li>
                         <li><a href="">申請一覧</a></li>
                         <li>
-                            <form method="POST" action="">
+                            <form method="POST" action="{{ url('/logout') }}">
                                 @csrf
                                 <button type="submit">ログアウト</button>
                             </form>
                         </li>
                     </ul>
                     @else
-                        @if(isset($workingStatus) && $workingStatus === 'done')
+                        @if(isset($status) && $status === '退勤済')
                         <ul>
-                            <li><a href="">今月の出勤一覧</a></li>
-                            <li><a href="">申請一覧</a></li>
+                            <li><a href="{{ route('attendance.list') }}">今月の出勤一覧</a></li>
+                            <li><a href="{{ route('correction_request.list') }}">申請一覧</a></li>
                             <li>
                                 <form method="POST" action="{{ url('/logout') }}">
-                @csrf
-                <button type="submit">ログアウト</button>
-                </form>
-                </li>
-                </ul>
-                @else --}}
-                <ul>
-                    <li><a href="{{ route('attendance.form') }}">勤怠</a></li>
-                    <li><a href="{{ route('attendance.list') }}">勤怠一覧</a></li>
-                    <li><a href="{{ route('correction_request.list') }}">申請</a></li>
-                    <li>
-                        <form method="POST" action="{{ url('/logout') }}">
-                            @csrf
-                            <button type="submit">ログアウト</button>
-                        </form>
-                    </li>
-                </ul>
-                {{-- @endif
-                @endif
-                @endguest --}}
+                                    @csrf
+                                    <button type="submit">ログアウト</button>
+                                </form>
+                            </li>
+                        </ul>
+                        @else
+                        <ul>
+                            <li><a href="{{ route('attendance.form') }}">勤怠</a></li>
+                            <li><a href="{{ route('attendance.list') }}">勤怠一覧</a></li>
+                            <li><a href="{{ route('correction_request.list') }}">申請</a></li>
+                            <li>
+                                <form method="POST" action="{{ url('/logout') }}">
+                                    @csrf
+                                    <button type="submit">ログアウト</button>
+                                </form>
+                            </li>
+                        </ul>
+                        @endif
+                    @endif
+                @endguest
             </nav>
         </div>
     </header>
