@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminAttendanceController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CorrectionRequestController;
 use App\Http\Controllers\LoginController;
@@ -40,5 +41,6 @@ Route::get('/admin/login', function (Request $request) {
 Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.post');
 
 Route::middleware(['auth', 'admin'])->group(function () {
-
+    Route::get('/admin/attendance/list', [AdminAttendanceController::class, 'listAllAttendances'])->name('admin.attendance.list');
+    Route::get('/admin/attendance/{id}', [AdminAttendanceController::class, 'showStaffAttendanceDetail'])->name('admin.attendance/detail');
 });

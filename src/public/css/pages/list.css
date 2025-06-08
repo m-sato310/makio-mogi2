@@ -1,6 +1,3 @@
-/* body {
-    background: #f3f2f5;
-} */
 
 /* タイトルコンテナ */
 .attendance-title-container {
@@ -88,6 +85,7 @@
     border-radius: 23px;
     margin: 0 auto;
     box-shadow: none;
+    position: relative;
 }
 
 .month-label .month-icon {
@@ -96,6 +94,19 @@
     margin-right: 8px;
     vertical-align: middle;
     display: inline-block;
+}
+
+.day-icon {
+    cursor: pointer;
+}
+
+.date-picker {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
 }
 
 /* テーブルコンテナ */
