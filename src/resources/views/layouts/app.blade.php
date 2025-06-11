@@ -25,12 +25,13 @@
                 @else
                     @if(Auth::user()->is_admin)
                     <ul>
-                        <li><a href="">勤怠一覧</a></li>
-                        <li><a href="">スタッフ一覧</a></li>
+                        <li><a href="{{ route('admin.attendance.list') }}">勤怠一覧</a></li>
+                        <li><a href="{{ route('admin.staff.list') }}">スタッフ一覧</a></li>
                         <li><a href="">申請一覧</a></li>
                         <li>
                             <form method="POST" action="{{ url('/logout') }}">
                                 @csrf
+                                <input type="hidden" name="is_admin_logout" value="1">
                                 <button type="submit">ログアウト</button>
                             </form>
                         </li>

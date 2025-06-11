@@ -1,0 +1,88 @@
+.staff-list-title-container {
+    margin: 60px auto 0 auto;
+    display: flex;
+    justify-content: left;
+    max-width: 900px;
+}
+
+.staff-list-title-row {
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    margin-bottom: 24px;
+    gap: 20px;
+}
+
+.title-bar {
+    width: 8px;
+    height: 40px;
+    background: #000;
+    display: inline-block;
+}
+
+.staff-list-title-text {
+    font-weight: 700;
+    color: #000;
+}
+
+.staff-table-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.staff-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    color: #737373;
+    overflow: hidden;
+}
+
+.staff-table thead tr {
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.staff-table th {
+    text-align: center;
+    height: 45px;
+    padding: 0 16px;
+}
+
+.staff-table th:first-child {
+    padding-left: 60px;
+}
+
+.staff-table th:last-child {
+    padding-right: 60px;
+}
+
+.staff-table tbody tr {
+    border-bottom: 2px solid #e1e1e1;
+    height: 45px;
+}
+
+.staff-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.staff-table td {
+    text-align: center;
+    padding: 0 16px;
+}
+
+.staff-table td:first-child {
+    padding-left: 60px;
+}
+
+.staff-table td:last-child {
+    padding-right: 60px;
+}
+
+.staff-table td a {
+    color: #000;
+    text-decoration: none;
+}

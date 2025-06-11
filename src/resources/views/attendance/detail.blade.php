@@ -74,17 +74,19 @@
     </div>
 
     @else
-    <form id="correction-form" method="POST" action="{{ route('attendance.correction', ['id' => $attendance->id]) }}">
+    <form id="correction-form" method="POST" action="{{ !empty($isAdmin) ? route('admin.attendance.update', ['id' => $attendance->id]) : route('attendance.correction', ['id' => $attendance->id]) }}">
         @csrf
         <div class="attendance-detail-table">
             <div class="attendance-detail-row">
                 <span class="attendance-detail-label">名前</span>
-                <span class="attendance-detail-value">{{ $attendance->user->name }}</span>
+                <div class="attendance-detail-inputs value">
+                    <span class="attendance-detail-value">{{ $attendance->user->name }}</span>
+                </div>
             </div>
 
             <div class="attendance-detail-row">
                 <span class="attendance-detail-label">日付</span>
-                <div class="attendance-detail-inputs">
+                <div class="attendance-detail-inputs value">
                     <span class="attendance-detail-value">
                         {{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年') }}
                     </span>
@@ -98,7 +100,7 @@
                 <span class="attendance-detail-label">出勤・退勤</span>
                 <div class="attendance-detail-inputs">
                     <div>
-                        <input class="attendance-detail-input" type="text" name="new_clock_in"
+                        <input class="attendance-detail-input" type="time" name="new_clock_in"
                             value="{{ old('new_clock_in',
                                 (isset($correctionRequest) && $correctionRequest->new_clock_in)
                                     ? \Carbon\Carbon::parse($correctionRequest->new_clock_in)->format('H:i')
@@ -110,7 +112,7 @@
                     </div>
                     〜
                     <div>
-                        <input class="attendance-detail-input" type="text" name="new_clock_out"
+                        <input class="attendance-detail-input" type="time" name="new_clock_out"
                             value="{{ old('new_clock_out',
                                 (isset($correctionRequest) && $correctionRequest->new_clock_out)
                                     ? \Carbon\Carbon::parse($correctionRequest->new_clock_out)->format('H:i')
@@ -130,7 +132,7 @@
                 </span>
                 <div class="attendance-detail-inputs">
                     <div>
-                        <input class="attendance-detail-input" type="text" name="new_breaks[{{ $i }}][new_break_start]"
+                        <input class="attendance-detail-input" type="time" name="new_breaks[{{ $i }}][new_break_start]"
                             value="{{ old("new_breaks.$i.new_break_start", $break->new_break_start ? \Carbon\Carbon::parse($break->new_break_start)->format('H:i') : ($break->break_start ? \Carbon\Carbon::parse($break->break_start)->format('H:i') : '')) }}">
                         @error("new_breaks.$i.new_break_start")
                         <div class="error">{{ $message }}</div>
@@ -138,7 +140,7 @@
                     </div>
                     〜
                     <div>
-                        <input class="attendance-detail-input" type="text" name="new_breaks[{{ $i }}][new_break_end]"
+                        <input class="attendance-detail-input" type="time" name="new_breaks[{{ $i }}][new_break_end]"
                             value="{{ old("new_breaks.$i.new_break_end", $break->new_break_end ? \Carbon\Carbon::parse($break->new_break_end)->format('H:i') : ($break->break_end ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '')) }}">
                         @error("new_breaks.$i.new_break_end")
                         <div class="error">{{ $message }}</div>
@@ -154,7 +156,7 @@
                 </span>
                 <div class="attendance-detail-inputs">
                     <div>
-                        <input class="attendance-detail-input" type="text" name="new_breaks[{{ $breaks->count() }}][new_break_start]"
+                        <input class="attendance-detail-input" type="time" name="new_breaks[{{ $breaks->count() }}][new_break_start]"
                             value="{{ old('new_breaks.' . $breaks->count() . '.new_break_start') }}">
                         @error("new_breaks." . $breaks->count() . ".new_break_start")
                         <div class="error">{{ $message }}</div>
@@ -162,7 +164,7 @@
                     </div>
                     〜
                     <div>
-                        <input class="attendance-detail-input" type="text" name="new_breaks[{{ $breaks->count() }}][new_break_end]"
+                        <input class="attendance-detail-input" type="time" name="new_breaks[{{ $breaks->count() }}][new_break_end]"
                             value="{{ old('new_breaks.' . $breaks->count() . '.new_break_end') }}">
                         @error("new_breaks." . $breaks->count() . ".new_break_end")
                         <div class="error">{{ $message }}</div>
@@ -174,6 +176,7 @@
             <div class="attendance-detail-row note-row">
                 <span class="attendance-detail-label">備考</span>
                 <div class="attendance-detail-inputs">
+                    <!-- @dump($correctionRequest) -->
                     <textarea class="attendance-detail-note" name="remarks">{{ old('remarks', $correctionRequest->remarks ?? '') }}</textarea>
                     @error('remarks')
                     <div class="error">{{ $message }}</div>

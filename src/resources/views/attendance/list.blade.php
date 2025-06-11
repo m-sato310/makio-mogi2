@@ -89,7 +89,7 @@
                 <td>{{ !is_null($summary['workMinutes']) ? floor($summary['workMinutes']/60).':'.str_pad($summary['workMinutes']%60,2,'0',STR_PAD_LEFT) : '' }}</td>
                 <td>
                     @if ($summary['attendance'])
-                    <a href="{{ route('attendance.detail', ['id' => $summary['attendance']->id]) }}">詳細</a>
+                    <a href="{{ route('admin.attendance.detail', ['id' => $summary['attendance']->id]) }}">詳細</a>
                     @endif
                 </td>
             </tr>

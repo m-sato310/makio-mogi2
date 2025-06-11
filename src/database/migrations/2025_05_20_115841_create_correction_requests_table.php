@@ -17,8 +17,8 @@ class CreateCorrectionRequestsTable extends Migration
             $table->id();
             $table->foreignId('attendance_id')->constrained('attendances')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('new_clock_in');
-            $table->string('new_clock_out');
+            $table->time('new_clock_in');
+            $table->time('new_clock_out');
             $table->string('remarks',255);
             $table->string('approval_status');
             $table->timestamp('approved_at')->nullable();

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CorrectionRequestRequest;
 use App\Models\Attendance;
+use App\Models\CorrectionBreak;
+use App\Models\CorrectionRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AdminAttendanceController extends Controller
 {
@@ -14,7 +18,7 @@ class AdminAttendanceController extends Controller
         $targetDate = $request->input('date') ? Carbon::parse($request->input('date')) : Carbon::today();
 
         $attendances = Attendance::with('workBreaks', 'user')->whereDate('work_date', $targetDate->format('Y-m-d'))->get()->keyBy('user_id');
-        $users = User::where('is_admin' , false)->orderBy('name')->get();
+        $users = User::where('is_admin', false)->orderBy('name')->get();
 
         $attendanceSummary = [];
         foreach ($users as $user) {
@@ -53,10 +57,62 @@ class AdminAttendanceController extends Controller
 
     public function showStaffAttendanceDetail($id)
     {
-        $attendance = Attendance::with(['user', 'workBreaks'])->findOrFail($id);
+        $attendance = Attendance::with(['user', 'workBreaks', 'correctionRequests'])->findOrFail($id);
 
         $isPending = false;
 
-        return view('attendance.detail', compact('attendance', 'isPending'))->with('isAdmin', true);
+        $correctionRequest = $attendance->correctionRequests()->orderByDesc('created_at')->first();
+
+        $breaks = $attendance->workBreaks;
+
+        return view('attendance.detail', compact('attendance', 'isPending', 'correctionRequest', 'breaks'))->with('isAdmin', true);
+    }
+
+    public function updateStaffAttendance(CorrectionRequestRequest $request, $id)
+    {
+        DB::transaction(function () use ($request, $id) {
+            $attendance = Attendance::with(['user', 'workBreaks'])->findOrFail($id);
+
+            $correctionRequest = CorrectionRequest::create([
+                'attendance_id' => $attendance->id,
+                'user_id' => $attendance->user_id,
+                'new_clock_in' => $request->input('new_clock_in'),
+                'new_clock_out' => $request->input('new_clock_out'),
+                'remarks' => $request->input('remarks'),
+                'approval_status' => 'approved',
+                'approved_at' => now(),
+            ]);
+
+            foreach ($request->input('new_breaks', []) as $break) {
+                if (!empty($break['new_break_start']) && !empty($break['new_break_end'])) {
+                    CorrectionBreak::create([
+                        'correction_request_id' => $correctionRequest->id,
+                        'new_break_start' => $break['new_break_start'],
+                        'new_break_end' => $break['new_break_end'],
+                    ]);
+                }
+            }
+
+            $attendance->workBreaks()->delete();
+            foreach ($request->input('new_breaks', []) as $break) {
+                if (!empty($break['new_break_start']) && !empty($break['new_break_end'])) {
+                    $attendance->workBreaks()->create([
+                        'break_start' => $break['new_break_start'],
+                        'break_end' => $break['new_break_end'],
+                    ]);
+                }
+            }
+
+            $attendance->update([
+                'clock_in' => $request->input('new_clock_in'),
+                'clock_out' => $request->input('new_clock_out'),
+            ]);
+
+            $correctionRequest->update([
+                'remarks' => $request->input('remarks'),
+            ]);
+        });
+
+        return redirect()->route('admin.attendance.detail', ['id' => $id]);
     }
 }
