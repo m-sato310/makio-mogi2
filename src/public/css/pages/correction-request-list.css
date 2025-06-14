@@ -1,0 +1,119 @@
+.correction-request-title-container {
+    max-width: 900px;
+    margin: 60px auto 0 auto;
+    justify-content: left;
+}
+
+.correction-request-title-row {
+    align-items: center;
+    display: flex;
+    font-size: 30px;
+    margin-bottom: 24px;
+    gap: 20px;
+}
+
+.correction-request-title-text {
+    color: #000;
+    font-weight: 700;
+}
+
+.title-bar {
+    background: #000;
+    display: inline-block;
+    height: 40px;
+    width: 8px;
+}
+
+.correction-request-tab-container {
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: center;
+    display: flex;
+    gap: 45px;
+}
+
+.correction-request-tab {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 2.4px;
+    color: #000;
+    padding-left: 50px;
+    margin-top: 30px;
+}
+
+.correction-request-tab.active {
+    font-weight: 700;
+}
+
+.correction-request-tab-divider {
+    margin: 0 auto;
+    max-width: 900px;
+    border: none;
+    border-top: 1px solid #000;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.correction-request-table-container {
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+.correction-request-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    color: #737373;
+    overflow: hidden;
+}
+
+.correction-request-table thead tr {
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.correction-request-table th {
+    text-align: center;
+    height: 45px;
+    padding: 0 16px;
+}
+
+.correction-request-table th:first-child {
+    padding-left: 30px;
+}
+.correction-request-table th:last-child {
+    padding-right: 30px;
+}
+
+.correction-request-table tbody tr {
+    border-bottom: 2px solid #e1e1e1;
+    height: 45px;
+}
+
+.correction-request-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.correction-request-table td {
+    text-align: center;
+    padding: 0 16px;
+}
+
+.correction-request-table td:first-child {
+    padding-left: 30px;
+}
+.correction-request-table td:last-child {
+    padding-right: 30px;
+}
+.correction-request-table td a {
+    color: #000;
+    font-weight: 700;
+}
+
+.no-letter-spacing {
+    letter-spacing: normal;
+}

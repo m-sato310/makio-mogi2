@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminAttendanceController;
+use App\Http\Controllers\AdminCorrectionRequestController;
 use App\Http\Controllers\AdminStaffController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CorrectionRequestController;
@@ -47,4 +48,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/attendance/{id}', [AdminAttendanceController::class, 'updateStaffAttendance'])->name('admin.attendance.update');
     Route::get('/admin/staff/list', [AdminStaffController::class, 'listStaffs'])->name('admin.staff.list');
     Route::get('/admin/attendance/staff/{id}', [AdminAttendanceController::class, 'listStaffAttendances'])->name('admin.attendance.staff');
+    Route::get('/admin/attendance/staff/{id}/csv', [AdminAttendanceController::class, 'exportStaffAttendanceCsv'])->name('admin.attendance.staff.csv');
+    Route::get('/admin/stamp_correction_request/list', [AdminCorrectionRequestController::class, 'listAllApplications'])->name('admin.correction_request.list');
+    Route::get('/admin/stamp_correction_request/approve/{attendance_correct_request}', [AdminCorrectionRequestController::class, 'showApproveRequestForm'])->name('admin.correction_request.approve_form');
+    Route::post('/admin/stamp_correction_request/approve/{attendance_correct_request}', [AdminCorrectionRequestController::class, 'approveRequest'])->name('admin.correction_request.approve');
 });
