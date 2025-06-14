@@ -115,4 +115,61 @@ class AdminAttendanceController extends Controller
 
         return redirect()->route('admin.attendance.detail', ['id' => $id]);
     }
+
+    public function listStaffAttendances(Request $request, $id)
+    {
+        $staff = User::findOrFail($id);
+
+        $year = $request->input('year', now()->year);
+        $month = $request->input('month', now()->month);
+
+        $startDate = Carbon::create($year, $month, 1)->startOfMonth();
+        $endDate = $startDate->copy()->endOfMonth();
+
+        $attendances = Attendance::with('workBreaks')
+            ->where('user_id', $staff->id)
+            ->whereBetween('work_date', [$startDate, $endDate])
+            ->get()
+            ->keyBy('work_date');
+
+        $daysInMonth = [];
+        $attendanceSummary = [];
+
+        for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+            $workDate = $date->format('Y-m-d');
+            $attendance = $attendances->get($workDate);
+
+            $breakMinutes = 0;
+            if ($attendance && $attendance->workBreaks->count()) {
+                foreach ($attendance->workBreaks as $break) {
+                    if ($break->break_start && $break->break_end) {
+                        $breakMinutes += Carbon::parse($break->break_end)
+                            ->diffInMinutes(Carbon::parse($break->break_start));
+                    }
+                }
+            }
+
+            $workMinutes = null;
+            if ($attendance && $attendance->clock_in && $attendance->clock_out) {
+                $workMinutes = Carbon::parse($attendance->clock_out)
+                    ->diffInMinutes(Carbon::parse($attendance->clock_in)) - $breakMinutes;
+            }
+
+            $attendanceSummary[$workDate] = [
+                'attendance' => $attendance,
+                'breakMinutes' => $breakMinutes,
+                'workMinutes' => $workMinutes,
+            ];
+
+            $daysInMonth[] = $date->copy();
+        }
+
+        return view('admin.attendance.staff_attendance_list', compact(
+            'staff',
+            'attendanceSummary',
+            'daysInMonth',
+            'year',
+            'month'
+        ));
+    }
 }

@@ -1,0 +1,141 @@
+.attendance-title-container {
+    max-width: 900px;
+    margin: 60px auto 0 auto;
+}
+
+.attendance-list-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #000;
+    text-align: left;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.title-bar {
+    width: 8px;
+    height: 40px;
+    background: #000;
+    display: inline-block;
+}
+
+.month-switcher-container {
+    max-width: 900px;
+    margin: 40px auto 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.month-switcher-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+}
+
+.month-btn {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    color: #737373;
+    text-align: center;
+    letter-spacing: 2.4px;
+}
+
+.month-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    gap: 10px;
+}
+
+.month-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.attendance-table-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    color: #737373;
+    overflow: hidden;
+}
+
+.attendance-table thead tr {
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.attendance-table th {
+    text-align: center;
+    height: 45px;
+    padding: 0 16px;
+}
+
+.attendance-table th:last-child {
+    padding-right: 60px;
+}
+
+.attendance-table tbody tr {
+    border-bottom: 2px solid #e1e1e1;
+    height: 45px;
+}
+
+.attendance-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.attendance-table td {
+    text-align: center;
+    padding: 0 16px;
+}
+
+.attendance-table td a {
+    color: #000;
+    font-weight: 700;
+}
+
+.attendance-table td:last-child {
+    padding-right: 60px;
+}
+
+.disabled-link {
+    color: #000;
+    text-decoration: none;
+}
+
+.csv-export-container {
+    max-width: 900px;
+    margin: 40px auto;
+    text-align: right;
+    margin-bottom: 40px;
+}
+
+.csv-btn {
+    width: 184px;
+    height: 50px;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3.3px;
+}
