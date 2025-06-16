@@ -1,0 +1,100 @@
+.attendance-detail-title-container {
+    max-width: 900px;
+    margin: 60px auto 0 auto;
+}
+
+.attendance-detail-title-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.title-bar {
+    width: 8px;
+    height: 40px;
+    background: #000;
+    display: inline-block;
+}
+
+.attendance-detail-title-text {
+    font-size: 30px;
+    font-weight: 700;
+    color: #000;
+}
+
+.attendance-detail-form-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.attendance-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-detail-row {
+    display: flex;
+    align-items: center;
+    height: 90px;
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.attendance-detail-row:last-child {
+    border-bottom: none;
+}
+
+.attendance-detail-label {
+    width: 350px;
+    padding-left: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #737373;
+    letter-spacing: 2.4px;
+}
+
+.attendance-detail-value {
+    font-size: 16px;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+}
+
+.attendance-detail-note-view {
+    font-size: 14px;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 2.1px;
+}
+
+.attendance-detail-inputs {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.attendance-detail-footer-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.approve-btn {
+    width: 130px;
+    height: 50px;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3.3px;
+}
+
+.approve-btn:disabled,
+.approve-btn:disabled:hover,
+.approve-btn:disabled:active,
+.approve-btn:disabled:focus {
+    background: #696969;
+    opacity: 1;
+}

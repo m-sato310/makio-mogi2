@@ -74,7 +74,7 @@
     </div>
 
     @else
-    <form id="correction-form" method="POST" action="{{ !empty($isAdmin) ? route('admin.attendance.update', ['id' => $attendance->id]) : route('attendance.correction', ['id' => $attendance->id]) }}">
+    <form id="correction-form" method="POST" action="{{ !empty($isAdmin) ? route('admin.attendance.update', ['id' => $attendance->id]) : route('attendance.correction', ['id' => $attendance->id]) }}" novalidate>
         @csrf
         <div class="attendance-detail-table">
             <div class="attendance-detail-row">
