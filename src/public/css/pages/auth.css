@@ -2,13 +2,23 @@ body {
     background: #FFFFFF;
 }
 
+.auth-container {
+    max-width: 680px;
+}
+
 .auth-title {
     text-align: center;
     margin-top: 0;
     margin-bottom: 32px;
-    font-size: 26px;
-    font-weight: bold;
-    letter-spacing: 2px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+}
+
+label {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
 }
 
 .btn-primary {

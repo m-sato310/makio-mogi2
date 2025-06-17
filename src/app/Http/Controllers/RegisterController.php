@@ -25,7 +25,7 @@ class RegisterController extends Controller
 
         $user->sendEmailVerificationNotification();
 
-        return redirect('/attendance');
+        return redirect('/verify-email');
     }
 
     public function showVerifyEmail()
