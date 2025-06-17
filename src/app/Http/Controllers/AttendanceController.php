@@ -41,7 +41,7 @@ class AttendanceController extends Controller
         return '勤務外';
     }
 
-    public function clockIn(Request $request)
+    public function clockIn()
     {
         $user = Auth::user();
         $today = now()->format('Y-m-d');
@@ -66,7 +66,7 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.form');
     }
 
-    public function clockOut(Request $request)
+    public function clockOut()
     {
         $user = Auth::user();
         $today = now()->format('Y-m-d');
@@ -90,7 +90,7 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.form');
     }
 
-    public function breakStart(Request $request)
+    public function breakStart()
     {
         $user = Auth::user();
         $today = now()->format('Y-m-d');
@@ -117,7 +117,7 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.form');
     }
 
-    public function breakEnd(Request $request)
+    public function breakEnd()
     {
         $user = Auth::user();
         $today = now()->format('Y-m-d');

@@ -19,6 +19,10 @@
         {{ \Carbon\Carbon::now()->isoFormat('YYYY年MM月DD日(ddd)') }}
     </div>
 
+    <span id="server-time" style="display:none;">
+        {{ now()->format('Y/m/d H:i') }}
+    </span>
+
     <div class="attendance-clock" id="current-time"></div>
 
     <div class="attendance-actions">
