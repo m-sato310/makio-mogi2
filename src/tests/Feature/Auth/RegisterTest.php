@@ -16,14 +16,14 @@ class RegisterTest extends TestCase
      */
     public function test_register_validation_error_when_name_is_empty()
     {
-        $date = [
+        $data = [
             'name' => '',
             'email' => 'test@example',
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ];
 
-        $response = $this->post('/register', $date);
+        $response = $this->post('/register', $data);
 
         $response->assertSessionHasErrors([
             'name' => 'お名前を入力してください'
