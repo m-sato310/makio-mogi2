@@ -19,6 +19,7 @@
         <div class="header-inner">
             <img class="header-logo" src="{{ asset('image/logo.svg') }}" alt="COACHTECHロゴ">
 
+            @if (!trim($__env->yieldContent('hide-nav')))
             <nav class="header-nav">
                 @guest
 
@@ -64,6 +65,7 @@
                 @endif
                 @endguest
             </nav>
+            @endif
         </div>
     </header>
 

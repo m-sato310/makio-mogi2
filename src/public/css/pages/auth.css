@@ -11,10 +11,16 @@ body {
     letter-spacing: 2px;
 }
 
+.btn-primary {
+    height: 60px;
+    font-size: 26px;
+    font-weight: 700;
+}
+
 .button-link {
     text-align: center;
     margin-top: 16px;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .button-link a {

@@ -26,6 +26,12 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/verify-email', [RegisterController::class, 'showVerifyEmail'])->name('verification.notice');
+    Route::post('email/verification-notification', [RegisterController::class, 'sendVerificationEmail'])->name('verification.send');
+    Route::get('/email/verify/{id}/{hash}', [RegisterController::class, 'verifyEmail'])->name('verification.verify');
+});;
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'showAttendanceForm'])->name('attendance.form');
     Route::post('/attendance/start', [AttendanceController::class, 'clockIn'])->name('attendance.start');
     Route::post('/attendance/finish', [AttendanceController::class, 'clockOut'])->name('attendance.finish');

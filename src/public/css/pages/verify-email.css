@@ -1,0 +1,62 @@
+body {
+    background-color: #fff;
+}
+
+.verify-email-container {
+    max-width: 720px;
+    margin: 250px auto;
+    text-align: center;
+}
+
+.verify-email-message {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+}
+
+.verify-email-action {
+    display: flex;
+    justify-content: center;
+}
+
+.verify-email-action .btn-primary {
+    margin-top: 60px;
+    width: 257px;
+    height: 69px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background: #d9d9d9;
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.verify-email-resend {
+    margin-top: 50px;
+    width: 257px;
+    height: 53px;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-link {
+    font-size: 20px;
+    font-weight: 400;
+    background: none;
+    color: #0073cc;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-link:hover {
+    color: #005999;
+    background: none;
+}

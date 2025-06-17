@@ -56,11 +56,11 @@
     </div>
     @endif
 
-    <!-- @if (session('status'))
+    @if (session('status'))
     <div class="attendance-flash">
         {{ session('status' )}}
     </div>
-    @endif -->
+    @endif
 </div>
 @endsection
 
