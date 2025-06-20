@@ -26,7 +26,9 @@ class AdminAttendanceController extends Controller
             $attendance = $attendances->get($user->id);
 
             $breakMinutes = 0;
+            $hasBreak = false;
             if ($attendance && $attendance->workBreaks->count()) {
+                $hasBreak = true;
                 foreach ($attendance->workBreaks as $break) {
                     if ($break->break_start && $break->break_end) {
                         $breakMinutes += Carbon::parse($break->break_end)->diffInMinutes(Carbon::parse($break->break_start));
@@ -44,6 +46,7 @@ class AdminAttendanceController extends Controller
                 'attendance' => $attendance,
                 'breakMinutes' => $breakMinutes,
                 'workMinutes' => $workMinutes,
+                'hasBreak' => $hasBreak,
             ];
         }
 

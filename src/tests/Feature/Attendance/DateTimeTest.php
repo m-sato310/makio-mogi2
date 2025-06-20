@@ -18,7 +18,7 @@ class DateTimeTest extends TestCase
     public function test_attendance_screen_displays_current_datetime()
     {
         $user = User::factory()->create();
-        
+
         $this->actingAs($user);
 
         $now = now()->format('Y/m/d H:i');

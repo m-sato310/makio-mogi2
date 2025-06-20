@@ -30,8 +30,8 @@ class AttendanceController extends Controller
         if (!$attendance || !$attendance->clock_in) {
             return '勤務外';
         } elseif ($attendance->clock_in && !$attendance->clock_out) {
-            $lastBreak = $attendance->workBreaks->sortByDesc('break_start')->first();
-            if ($lastBreak && !$lastBreak->break_end) {
+            $lastBreak = $attendance->workBreaks()->orderBy('id', 'desc')->first();
+            if ($lastBreak && $lastBreak->break_end === null) {
                 return '休憩中';
             }
             return '出勤中';
@@ -167,8 +167,10 @@ class AttendanceController extends Controller
             $workDate = $date->format('Y-m-d');
             $attendance = $attendances->get($workDate);
 
+            $hasBreak = false;
             $breakMinutes = 0;
             if ($attendance && $attendance->workBreaks->count()) {
+                $hasBreak = true;
                 foreach ($attendance->workBreaks as $break) {
                     if ($break->break_start && $break->break_end) {
                         $breakMinutes += \Carbon\Carbon::parse($break->break_end)
@@ -187,6 +189,7 @@ class AttendanceController extends Controller
                 'attendance' => $attendance,
                 'breakMinutes' => $breakMinutes,
                 'workMinutes' => $workMinutes,
+                'hasBreak' => $hasBreak,
             ];
 
             $daysInMonth[] = $date->copy();

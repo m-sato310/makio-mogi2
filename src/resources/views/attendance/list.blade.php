@@ -85,7 +85,7 @@
                 <td>{{ $summary['user']->name }}</td>
                 <td>{{ optional($summary['attendance'])->clock_in ? \Carbon\Carbon::parse($summary['attendance']->clock_in)->format('H:i') : '' }}</td>
                 <td>{{ optional($summary['attendance'])->clock_out ? \Carbon\Carbon::parse($summary['attendance']->clock_out)->format('H:i') : '' }}</td>
-                <td>{{ $summary['breakMinutes'] ? floor($summary['breakMinutes']/60).':'.str_pad($summary['breakMinutes']%60,2,'0',STR_PAD_LEFT) : '' }}</td>
+                <td>{{ ($summary['hasBreak'] ?? false) ? (floor($summary['breakMinutes']/60).':'.str_pad($summary['breakMinutes']%60,2,'0',STR_PAD_LEFT)) : '' }}</td>
                 <td>{{ !is_null($summary['workMinutes']) ? floor($summary['workMinutes']/60).':'.str_pad($summary['workMinutes']%60,2,'0',STR_PAD_LEFT) : '' }}</td>
                 <td>
                     @if ($summary['attendance'])
@@ -114,7 +114,7 @@
                     {{ $attendance && $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}
                 </td>
                 <td>
-                    {{ $breakMinutes ? floor($breakMinutes/60).':'.str_pad($breakMinutes%60,2,'0',STR_PAD_LEFT) : '' }}
+                    {{ ($summary['hasBreak'] ?? false) ? (floor($breakMinutes/60).':'.str_pad($breakMinutes%60,2,'0',STR_PAD_LEFT)) : '' }}
                 </td>
                 <td>
                     {{ $workMinutes !== null ? floor($workMinutes/60).':'.str_pad($workMinutes%60,2,'0',STR_PAD_LEFT) : '' }}
