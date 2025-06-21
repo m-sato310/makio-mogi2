@@ -1,18 +1,14 @@
-
-/* タイトルコンテナ */
 .attendance-title-container {
     max-width: 900px;
     margin: 60px auto 0 auto;
 }
 
-/* タイトル */
 .attendance-list-title {
     font-size: 30px;
     font-weight: 700;
     color: #000;
     text-align: left;
     margin-bottom: 22px;
-
     display: flex;
     align-items: center;
     gap: 20px;
@@ -26,7 +22,6 @@
     margin-right: 6px;
 }
 
-/* 月切り替えコンテナ */
 .month-switcher-container {
     max-width: 900px;
     margin: 40px auto 40px auto;
@@ -36,7 +31,6 @@
     box-sizing: border-box;
 }
 
-/* 月切り替え行（左右端・中央） */
 .month-switcher-row {
     width: 100%;
     display: grid;
@@ -46,7 +40,6 @@
     background: #fff;
 }
 
-/* 月切り替えボタン */
 .month-btn.left, .month-btn.right {
     display: block;
     font-size: 16px;
@@ -70,8 +63,6 @@
     background: #fff;
 }
 
-
-/* 月の中央ラベル（年月） */
 .month-label {
     display: flex;
     align-items: center;
@@ -108,7 +99,6 @@
     cursor: pointer;
 }
 
-/* テーブルコンテナ */
 .attendance-table-container {
     max-width: 900px;
     margin: 0 auto 100px auto;
@@ -118,7 +108,6 @@
     box-sizing: border-box;
 }
 
-/* テーブル */
 .attendance-table {
     width: 100%;
     border-collapse: separate;
@@ -132,7 +121,6 @@
     table-layout: fixed;
 }
 
-/* テーブルヘッダー */
 .attendance-table th {
     background: #fff;
     color: #737373;
@@ -154,12 +142,10 @@
     letter-spacing: 2.4px;
 }
 
-/* 最終行のボーダー消す */
 .attendance-table tr:last-child td {
     border-bottom: none;
 }
 
-/* 詳細リンク */
 .attendance-table td a {
     color: #000;
     font-weight: 700;
@@ -167,4 +153,13 @@
     font-size: 16px;
     padding: 2px 8px;
     transition: background 0.15s;
+}
+
+@media (max-width: 900px) {
+    .attendance-title-container,
+    .month-switcher-container,
+    .attendance-table-container {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
 }

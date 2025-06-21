@@ -18,7 +18,6 @@
     </div>
 </div>
 
-{{-- 月切り替え用の白コンテナ --}}
 <div class="month-switcher-container">
     @if (!empty($isAdmin))
     <div class="month-switcher-row">

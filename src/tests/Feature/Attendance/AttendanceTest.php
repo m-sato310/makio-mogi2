@@ -11,11 +11,7 @@ use Tests\TestCase;
 class AttendanceTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     public function test_attendance_clock_in_button_works_and_status_changes()
     {
         $user = User::factory()->create();
