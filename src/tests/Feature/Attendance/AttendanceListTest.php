@@ -9,9 +9,14 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Carbon\Carbon;
 
-class AttendanceList extends TestCase
+class AttendanceListTest extends TestCase
 {
     use RefreshDatabase;
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
 
     public function test_all_of_my_attendance_records_are_displayed_in_list()
     {

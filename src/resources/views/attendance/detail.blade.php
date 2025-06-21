@@ -14,23 +14,14 @@
     </div>
 </div>
 
-<!-- デバッグ用 -->
-<!-- @if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif -->
-
 <div class="attendance-detail-form-container">
     @if ($isPending)
     <div class="attendance-detail-table">
         <div class="attendance-detail-row">
             <span class="attendance-detail-label">名前</span>
-            <span class="attendance-detail-value">{{ $attendance->user->name }}</span>
+            <div class="attendance-detail-inputs">
+                <span class="attendance-detail-value">{{ $attendance->user->name }}</span>
+            </div>
         </div>
 
         <div class="attendance-detail-row">
@@ -47,11 +38,15 @@
 
         <div class="attendance-detail-row">
             <span class="attendance-detail-label">出勤・退勤</span>
-            <span class="attendance-detail-value">
-                {{ $correctionRequest->new_clock_in ? \Carbon\Carbon::parse($correctionRequest->new_clock_in)->format('H:i') : '' }}
-                〜
-                {{ $correctionRequest->new_clock_out ? \Carbon\Carbon::parse($correctionRequest->new_clock_out)->format('H:i') : '' }}
-            </span>
+            <div class="attendance-detail-inputs">
+                <span class="attendance-detail-value">
+                    {{ $correctionRequest->new_clock_in ? \Carbon\Carbon::parse($correctionRequest->new_clock_in)->format('H:i') : '' }}
+                </span>
+                <span class="attendance-detail-separator">〜</span>
+                <span class="attendance-detail-value">
+                    {{ $correctionRequest->new_clock_out ? \Carbon\Carbon::parse($correctionRequest->new_clock_out)->format('H:i') : '' }}
+                </span>
+            </div>
         </div>
 
         @foreach ($breaks as $i => $break)
@@ -59,11 +54,15 @@
             <span class="attendance-detail-label">
                 {{ $i === 0 ? '休憩' : '休憩' . ($i + 1) }}
             </span>
-            <span class="attendance-detail-value">
-                {{ $break->new_break_start ? \Carbon\Carbon::parse($break->new_break_start)->format('H:i') : '' }}
-                〜
-                {{ $break->new_break_end ? \Carbon\Carbon::parse($break->new_break_end)->format('H:i') : '' }}
-            </span>
+            <div class="attendance-detail-inputs">
+                <span class="attendance-detail-value">
+                    {{ $break->new_break_start ? \Carbon\Carbon::parse($break->new_break_start)->format('H:i') : '' }}
+                </span>
+                <span class="attendance-detail-separator">〜</span>
+                <span class="attendance-detail-value">
+                    {{ $break->new_break_end ? \Carbon\Carbon::parse($break->new_break_end)->format('H:i') : '' }}
+                </span>
+            </div>
         </div>
         @endforeach
 
@@ -110,7 +109,7 @@
                         <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
-                    〜
+                    <span class="attendance-detail-separator">〜</span>
                     <div>
                         <input class="attendance-detail-input" type="time" name="new_clock_out"
                             value="{{ old('new_clock_out',
@@ -138,7 +137,7 @@
                         <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
-                    〜
+                    <span class="attendance-detail-separator">〜</span>
                     <div>
                         <input class="attendance-detail-input" type="time" name="new_breaks[{{ $i }}][new_break_end]"
                             value="{{ old("new_breaks.$i.new_break_end", $break->new_break_end ? \Carbon\Carbon::parse($break->new_break_end)->format('H:i') : ($break->break_end ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '')) }}">
@@ -162,7 +161,7 @@
                         <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
-                    〜
+                    <span class="attendance-detail-separator">〜</span>
                     <div>
                         <input class="attendance-detail-input" type="time" name="new_breaks[{{ $breaks->count() }}][new_break_end]"
                             value="{{ old('new_breaks.' . $breaks->count() . '.new_break_end') }}">
@@ -176,7 +175,6 @@
             <div class="attendance-detail-row note-row">
                 <span class="attendance-detail-label">備考</span>
                 <div class="attendance-detail-inputs">
-                    <!-- @dump($correctionRequest) -->
                     <textarea class="attendance-detail-note" name="remarks">{{ old('remarks', $correctionRequest->remarks ?? '') }}</textarea>
                     @error('remarks')
                     <div class="error">{{ $message }}</div>
