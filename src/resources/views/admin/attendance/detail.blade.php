@@ -37,15 +37,15 @@
             <span class="attendance-detail-label">出勤・退勤</span>
             <div class="attendance-detail-inputs">
                 <span class="attendance-detail-value">
-                    {{ $attendance->clock_in
-                        ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i')
-                        : ($request->new_clock_in ? \Carbon\Carbon::parse($request->new_clock_in)->format('H:i') : '') }}
+                    {{ $request->new_clock_in
+                        ? \Carbon\Carbon::parse($request->new_clock_in)->format('H:i')
+                        : ($attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '') }}
                 </span>
                 <span class="attendance-detail-separator">〜</span>
                 <span class="attendance-detail-value">
-                    {{ $attendance->clock_out
-                        ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i')
-                        : ($request->new_clock_out ? \Carbon\Carbon::parse($request->new_clock_out)->format('H:i') : '') }}
+                    {{ $request->new_clock_out
+                        ? \Carbon\Carbon::parse($request->new_clock_out)->format('H:i')
+                        : ($attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '') }}
                 </span>
             </div>
         </div>

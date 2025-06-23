@@ -6,7 +6,6 @@ use App\Http\Requests\CorrectionRequestRequest;
 use App\Models\Attendance;
 use App\Models\CorrectionBreak;
 use App\Models\CorrectionRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +13,6 @@ class CorrectionRequestController extends Controller
 {
     public function applyCorrectionRequest(CorrectionRequestRequest $request, $attendanceId)
     {
-        // dd($attendanceId, $request->all());
         $attendance = Attendance::where('id', $attendanceId)
             ->where('user_id', Auth::id())
             ->firstOrFail();
@@ -56,11 +54,6 @@ class CorrectionRequestController extends Controller
             return redirect()->route('attendance.detail', ['id' => $attendanceId])
                 ->withErrors(['エラーが発生しました。再度お試しください。', $e->getMessage()]);
         }
-        // catch (\Exception $e) {
-        //     DB::rollBack();
-        //     return redirect()->route('attendance.detail', ['id' => $attendanceId])
-        //         ->withErrors(['エラーが発生しました。再度お試しください。']);
-        // }
     }
 
     public function listMyApplications()

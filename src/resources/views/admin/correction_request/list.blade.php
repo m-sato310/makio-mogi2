@@ -53,7 +53,9 @@
                 <td class="no-letter-spacing">
                     {{ $request->attendance->work_date ? \Carbon\Carbon::parse($request->attendance->work_date)->format('Y/m/d') : '-' }}
                 </td>
-                <td>{{ $request->remarks ?? '-' }}</td>
+                <td>
+                    {{ \Illuminate\Support\Str::limit($request->remarks ?? '-', 20, '…') }}
+                </td>
                 <td class="no-letter-spacing">{{ $request->created_at ? \Carbon\Carbon::parse($request->created_at)->format('Y/m/d') : '-' }}</td>
                 <td>
                     <a href="{{ route('admin.correction_request.approve_form', ['attendance_correct_request' => $request->id]) }}">詳細</a>

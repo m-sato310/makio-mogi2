@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CorrectionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Attendance;
 
 class AdminCorrectionRequestController extends Controller
 {
@@ -20,7 +21,12 @@ class AdminCorrectionRequestController extends Controller
         } else {
             $requests = CorrectionRequest::with('user', 'attendance')
                 ->where('approval_status', 'pending')
-                ->orderByDesc('created_at')
+                ->orderBy('created_at', 'asc')
+                ->orderBy(
+                    Attendance::select('work_date')
+                        ->whereColumn('attendances.id', 'correction_requests.attendance_id'),
+                    'asc'
+                )
                 ->get();
         }
 
@@ -30,12 +36,14 @@ class AdminCorrectionRequestController extends Controller
     public function showApproveRequestForm($id)
     {
         $request = CorrectionRequest::with(['user', 'attendance.workBreaks', 'correctionBreaks'])->findOrFail($id);
-
         $attendance = $request->attendance;
 
-        $breaks = $request->correctionBreaks->isNotEmpty()
-            ? $request->correctionBreaks
-            : ($attendance->workBreaks ?? collect());
+        // 申請時点でcorrectionBreaksがあればそれを、なければattendanceのworkBreaksを表示
+        if ($request->correctionBreaks->isNotEmpty()) {
+            $breaks = $request->correctionBreaks;
+        } else {
+            $breaks = collect();
+        }
 
         $isApproved = $request->approval_status === 'approved';
 

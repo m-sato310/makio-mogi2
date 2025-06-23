@@ -41,7 +41,7 @@ class CorrectionRequestRequest extends FormRequest
             'new_clock_out.required' => '退勤時刻を入力してください',
             'new_clock_out.date_format' => '出勤時刻は「時:分」形式で入力してください',
             'new_clock_out.after' => '出勤時間もしくは退勤時間が不適切な値です',
-            'remarks.required' => '備考を入力してください',
+            'remarks.required' => '備考を記入してください',
             'remarks.max' => '備考は255文字以内で入力してください',
             'new_breaks.*.new_break_start.date_format' => '休憩開始時刻は「時:分」形式で入力してください',
             'new_breaks.*.new_break_end.date_format' => '休憩終了時刻は「時:分」形式で入力してください',

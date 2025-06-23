@@ -215,10 +215,12 @@ class AttendanceController extends Controller
 
         $isPending = $correctionRequest && $correctionRequest->approval_status === 'pending';
 
-        if ($isPending) {
+        if ($correctionRequest && $correctionRequest->correctionBreaks->isNotEmpty()) {
             $breaks = $correctionRequest->correctionBreaks;
+        } elseif ($attendance->workBreaks->isNotEmpty()) {
+            $breaks = $attendance->workBreaks;
         } else {
-            $breaks = $attendance->workBreaks()->orderBy('break_start')->get();
+            $breaks = collect();
         }
 
         return view('attendance.detail', compact('attendance', 'breaks', 'correctionRequest', 'isPending'));
