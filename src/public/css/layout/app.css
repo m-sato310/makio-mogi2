@@ -19,7 +19,7 @@ header {
 }
 
 .header-logo {
-    width: clamp(150px, 40vw, 370px);
+    width: clamp(100px, 30vw, 370px);
     height: auto;
 }
 

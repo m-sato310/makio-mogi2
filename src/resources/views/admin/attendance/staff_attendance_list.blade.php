@@ -83,7 +83,7 @@
     <form method="GET" action="{{ route('admin.attendance.staff.csv', ['id' => $staff->id]) }}">
         <input type="hidden" name="year" value="{{ $year }}">
         <input type="hidden" name="month" value="{{ $month }}">
-        <button type="submit">CSV出力</button>
+        <button class="csv-btn" type="submit">CSV出力</button>
     </form>
 </div>
 @endsection

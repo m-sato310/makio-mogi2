@@ -51,7 +51,6 @@
     max-width: 900px;
     border: none;
     border-top: 1px solid #000;
-    width: 100%;
     margin-top: 10px;
 }
 
@@ -116,4 +115,31 @@
 
 .no-letter-spacing {
     letter-spacing: normal;
+}
+
+@media (max-width: 900px) {
+    .correction-request-title-container,
+    .correction-request-tab-container,
+    .correction-request-tab-divider,
+    .correction-request-table-container {
+    margin-left: 16px;
+    margin-right: 16px;
+    box-sizing: border-box;
+    }
+
+    .correction-request-table th,
+    .correction-request-table td {
+        padding-left: 4px;
+        padding-right: 4px;
+        word-break: break-all;
+    }
+
+    .correction-request-table th:first-child,
+    .correction-request-table td:first-child {
+        padding-left: 4px;
+    }
+    .correction-request-table th:last-child,
+    .correction-request-table td:last-child {
+        padding-right: 4px;
+    }
 }

@@ -87,3 +87,12 @@
     color: #000;
     text-decoration: none;
 }
+
+@media (max-width: 900px) {
+    .staff-list-title-container,
+    .staff-table-container {
+        margin-left: 16px;
+        margin-right: 16px;
+        box-sizing: border-box;
+    }
+}

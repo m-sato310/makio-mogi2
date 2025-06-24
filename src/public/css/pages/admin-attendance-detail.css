@@ -98,3 +98,14 @@
     background: #696969;
     opacity: 1;
 }
+
+
+@media (max-width: 900px) {
+    .attendance-detail-title-container,
+    .attendance-detail-form-container,
+    .attendance-detail-footer-container {
+        margin-left: 16px;
+        margin-right: 16px;
+        box-sizing: border-box;
+    }
+}
