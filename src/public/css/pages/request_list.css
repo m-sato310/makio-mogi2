@@ -57,7 +57,7 @@
 .tab-underline {
     border:none;
     border-top: 1px solid #000;
-    width: 100%;
+    /* width: 100%; */
     max-width: 900px;
     margin: 0 auto 35px auto;
     position: relative;
@@ -108,4 +108,15 @@
 .detail-link {
     color: #000;
     text-decoration: none;
+}
+
+@media (max-width: 900px) {
+    .request-list-title-container,
+    .request-list-tab-container,
+    .tab-underline,
+    .request-list-table-container {
+        margin-left: 16px;
+        margin-right: 16px;
+        box-sizing: border-box;
+    }
 }
