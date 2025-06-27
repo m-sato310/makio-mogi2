@@ -59,18 +59,18 @@ class AdminAttendanceController extends Controller
         ));
     }
 
-    public function showStaffAttendanceDetail($id)
-    {
-        $attendance = Attendance::with(['user', 'workBreaks', 'correctionRequests'])->findOrFail($id);
+    // public function showStaffAttendanceDetail($id)
+    // {
+    //     $attendance = Attendance::with(['user', 'workBreaks', 'correctionRequests'])->findOrFail($id);
 
-        $isPending = false;
+    //     $isPending = false;
 
-        $correctionRequest = $attendance->correctionRequests()->orderByDesc('created_at')->first();
+    //     $correctionRequest = $attendance->correctionRequests()->orderByDesc('created_at')->first();
 
-        $breaks = $attendance->workBreaks;
+    //     $breaks = $attendance->workBreaks;
 
-        return view('attendance.detail', compact('attendance', 'isPending', 'correctionRequest', 'breaks'))->with('isAdmin', true);
-    }
+    //     return view('attendance.detail', compact('attendance', 'isPending', 'correctionRequest', 'breaks'))->with('isAdmin', true);
+    // }
 
     public function updateStaffAttendance(CorrectionRequestRequest $request, $id)
     {
@@ -117,7 +117,7 @@ class AdminAttendanceController extends Controller
             ]);
         });
 
-        return redirect()->route('admin.attendance.detail', ['id' => $id]);
+        return redirect()->route('attendance.detail', ['id' => $id]);
     }
 
     public function listStaffAttendances(Request $request, $id)

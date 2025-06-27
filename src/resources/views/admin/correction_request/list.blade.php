@@ -15,10 +15,10 @@
 </div>
 
 <div class="correction-request-tab-container">
-    <a class="correction-request-tab{{ $status === 'pending' ? ' active' : '' }}" href="{{ route('admin.correction_request.list', ['status' => 'pending']) }}">
+    <a class="correction-request-tab{{ $status === 'pending' ? ' active' : '' }}" href="{{ route('correction_request.list', ['status' => 'pending']) }}">
         承認待ち
     </a>
-    <a class="correction-request-tab{{ $status === 'approved' ? ' active' : '' }}" href="{{ route('admin.correction_request.list', ['status' => 'approved']) }}">
+    <a class="correction-request-tab{{ $status === 'approved' ? ' active' : '' }}" href="{{ route('correction_request.list', ['status' => 'approved']) }}">
         承認済み
     </a>
 </div>

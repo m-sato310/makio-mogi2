@@ -8,6 +8,7 @@ use App\Models\CorrectionBreak;
 use App\Models\CorrectionRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class CorrectionRequestController extends Controller
 {
@@ -48,7 +49,6 @@ class CorrectionRequestController extends Controller
 
             return redirect()->route('attendance.detail', ['id' => $attendanceId])
                 ->with('status', '修正申請を受け付けました。管理者の承認をお待ちください。');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('attendance.detail', ['id' => $attendanceId])
@@ -56,22 +56,53 @@ class CorrectionRequestController extends Controller
         }
     }
 
-    public function listMyApplications()
+    // public function listMyApplications()
+    // {
+    //     $userId = Auth::id();
+
+    //     $pendingList = CorrectionRequest::with('attendance', 'user')
+    //         ->where('user_id', $userId)
+    //         ->where('approval_status', 'pending')
+    //         ->orderByDesc('created_at')
+    //         ->get();
+
+    //     $approvedList = CorrectionRequest::with('attendance', 'user')
+    //         ->where('user_id', $userId)
+    //         ->where('approval_status', 'approved')
+    //         ->orderByDesc('created_at')
+    //         ->get();
+
+    //     return view('correction_request.list', compact('pendingList', 'approvedList'));
+    // }
+
+    public function listApplications(Request $request)
     {
-        $userId = Auth::id();
+        $user = Auth::user();
+        $status = $request->input('status', 'pending');
 
-        $pendingList = CorrectionRequest::with('attendance', 'user')
-            ->where('user_id', $userId)
-            ->where('approval_status', 'pending')
-            ->orderByDesc('created_at')
-            ->get();
+        if ($user->is_admin) {
+            // 管理者：全ユーザー分
+            $requests = CorrectionRequest::with('attendance', 'user')
+                ->where('approval_status', $status)
+                ->orderByDesc('created_at')
+                ->get();
 
-        $approvedList = CorrectionRequest::with('attendance', 'user')
-            ->where('user_id', $userId)
-            ->where('approval_status', 'approved')
-            ->orderByDesc('created_at')
-            ->get();
+            return view('admin.correction_request.list', compact('requests', 'status'));
+        } else {
+            // 一般ユーザー：自分の分だけ
+            $pendingList = CorrectionRequest::with('attendance', 'user')
+                ->where('user_id', $user->id)
+                ->where('approval_status', 'pending')
+                ->orderByDesc('created_at')
+                ->get();
 
-        return view('correction_request.list', compact('pendingList', 'approvedList'));
+            $approvedList = CorrectionRequest::with('attendance', 'user')
+                ->where('user_id', $user->id)
+                ->where('approval_status', 'approved')
+                ->orderByDesc('created_at')
+                ->get();
+
+            return view('correction_request.list', compact('pendingList', 'approvedList'));
+        }
     }
 }

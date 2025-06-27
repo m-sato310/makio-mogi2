@@ -24,7 +24,7 @@ class CorrectionRequestSeeder extends Seeder
                     'attendance_id' => $attendance->id,
                     'user_id' => $userId,
                     'new_clock_in' => $attendance->clock_in === '09:00' ? '09:10' : $attendance->clock_in,
-                    'new_clock_out' => $attendance->clock_out === '17:00' ? '17:00' : $attendance->clock_out,
+                    'new_clock_out' => $attendance->clock_out === '17:00' ? '17:10' : $attendance->clock_out,
                     'remarks' => $i === 0 ? '交通渋滞のため10分遅刻' : '家庭の事情で遅刻',
                     'approval_status' => $i % 2 === 0 ? 'pending' : 'approved',
                 ]);

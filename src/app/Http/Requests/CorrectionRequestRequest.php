@@ -73,6 +73,9 @@ class CorrectionRequestRequest extends FormRequest
                     if (strtotime($end) <= strtotime($start)) {
                         $validator->errors()->add("new_breaks.$i.new_break_end", '休憩終了時刻は開始時刻より後にしてください');
                     }
+                    // if (strtotime($start) > strtotime($clockOut)) {
+                    //     $validator->errors()->add("new_breaks.$i.new_break_start", '休憩時間が不適切な値です');
+                    // }
                 }
             }
         });

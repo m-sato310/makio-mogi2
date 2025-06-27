@@ -68,7 +68,7 @@
                 </td>
                 <td>
                     @if($attendance)
-                    <a href="{{ route('admin.attendance.detail', ['id' => $attendance->id]) }}">詳細</a>
+                    <a href="{{ route('attendance.detail', ['id' => $attendance->id]) }}">詳細</a>
                     @else
                     <span class="disabled-link">詳細</span>
                     @endif

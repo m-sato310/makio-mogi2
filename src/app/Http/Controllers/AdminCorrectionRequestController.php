@@ -9,36 +9,35 @@ use App\Models\Attendance;
 
 class AdminCorrectionRequestController extends Controller
 {
-    public function listAllApplications(Request $request)
+    // public function listAllApplications(Request $request)
+    // {
+    //     $status = $request->input('status', 'pending');
+
+    //     if ($status === 'approved') {
+    //         $requests = CorrectionRequest::with('user', 'attendance')
+    //             ->where('approval_status', 'approved')
+    //             ->orderByDesc('approved_at')
+    //             ->get();
+    //     } else {
+    //         $requests = CorrectionRequest::with('user', 'attendance')
+    //             ->where('approval_status', 'pending')
+    //             ->orderBy('created_at', 'asc')
+    //             ->orderBy(
+    //                 Attendance::select('work_date')
+    //                     ->whereColumn('attendances.id', 'correction_requests.attendance_id'),
+    //                 'asc'
+    //             )
+    //             ->get();
+    //     }
+
+    //     return view('admin.correction_request.list', compact('requests', 'status'));
+    // }
+
+    public function showApproveRequestForm($attendance_correct_request)
     {
-        $status = $request->input('status', 'pending');
-
-        if ($status === 'approved') {
-            $requests = CorrectionRequest::with('user', 'attendance')
-                ->where('approval_status', 'approved')
-                ->orderByDesc('approved_at')
-                ->get();
-        } else {
-            $requests = CorrectionRequest::with('user', 'attendance')
-                ->where('approval_status', 'pending')
-                ->orderBy('created_at', 'asc')
-                ->orderBy(
-                    Attendance::select('work_date')
-                        ->whereColumn('attendances.id', 'correction_requests.attendance_id'),
-                    'asc'
-                )
-                ->get();
-        }
-
-        return view('admin.correction_request.list', compact('requests', 'status'));
-    }
-
-    public function showApproveRequestForm($id)
-    {
-        $request = CorrectionRequest::with(['user', 'attendance.workBreaks', 'correctionBreaks'])->findOrFail($id);
+        $request = CorrectionRequest::with(['user', 'attendance.workBreaks', 'correctionBreaks'])->findOrFail($attendance_correct_request);
         $attendance = $request->attendance;
 
-        // 申請時点でcorrectionBreaksがあればそれを、なければattendanceのworkBreaksを表示
         if ($request->correctionBreaks->isNotEmpty()) {
             $breaks = $request->correctionBreaks;
         } else {
@@ -47,6 +46,7 @@ class AdminCorrectionRequestController extends Controller
 
         $isApproved = $request->approval_status === 'approved';
 
+        // 管理者用Bladeを明示的に指定
         return view('admin.attendance.detail', compact(
             'request',
             'attendance',
@@ -55,10 +55,10 @@ class AdminCorrectionRequestController extends Controller
         ));
     }
 
-    public function approveRequest(Request $request, $id)
+    public function approveRequest($attendance_correct_request)
     {
-        DB::transaction(function () use ($id) {
-            $correction = CorrectionRequest::with(['attendance', 'correctionBreaks'])->findOrFail($id);
+        DB::transaction(function () use ($attendance_correct_request) {
+            $correction = CorrectionRequest::with(['attendance', 'correctionBreaks'])->findOrFail($attendance_correct_request);
 
             $attendance = $correction->attendance;
             $attendance->update([
@@ -80,6 +80,6 @@ class AdminCorrectionRequestController extends Controller
             ]);
         });
 
-        return redirect()->route('admin.correction_request.list');
+        return redirect()->route('correction_request.list');
     }
 }
