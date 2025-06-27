@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Attendance;
 
 use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Carbon\Carbon;
 
 class AttendanceTest extends TestCase
 {
@@ -39,7 +39,7 @@ class AttendanceTest extends TestCase
 
         $response = $this->actingAs($user)->get('/attendance');
 
-        $response->assertDontSee('出勤');
+        $response->assertDontSee('<button class="btn btn-primary js-confirm-clock-in" type="submit">出勤</button>', false);
     }
 
     public function test_attendance_clock_in_time_is_recorded_and_shown_on_admin_screen()
@@ -55,6 +55,6 @@ class AttendanceTest extends TestCase
         $admin = User::factory()->create(['is_admin' => true]);
 
         $response = $this->actingAs($admin)->get('/admin/attendance/list');
-        $response->assertSee(\Carbon\Carbon::createFromFormat('H:i:s', $attendance->clock_in)->format('H:i'));
+        $response->assertSee(Carbon::createFromFormat('H:i:s', $attendance->clock_in)->format('H:i'));
     }
 }

@@ -55,7 +55,7 @@ class AttendanceCorrectionRequestTest extends TestCase
         $response = $this->actingAs($user)->post(route('attendance.correction', ['id' => $attendance->id]), $data);
 
         $response->assertSessionHasErrors([
-            'new_breaks.0.new_break_start' => '休憩時間が勤務時間外です',
+            'new_breaks.0.new_break_start' => '休憩時間が不適切な値です',
         ]);
     }
 
@@ -80,7 +80,7 @@ class AttendanceCorrectionRequestTest extends TestCase
         $response = $this->actingAs($user)->post(route('attendance.correction', ['id' => $attendance->id]), $data);
 
         $response->assertSessionHasErrors([
-            'new_breaks.0.new_break_start' => '休憩時間が勤務時間外です',
+            'new_breaks.0.new_break_end' => '休憩時間もしくは退勤時間が不適切な値です',
         ]);
     }
 
@@ -124,7 +124,7 @@ class AttendanceCorrectionRequestTest extends TestCase
 
         $this->actingAs($user)->post(route('attendance.correction', ['id' => $attendance->id]), $data);
 
-        $response1 = $this->actingAs($admin)->get(route('admin.correction_request.list'));
+        $response1 = $this->actingAs($admin)->get(route('correction_request.list'));
         $correctionRequest = CorrectionRequest::where('attendance_id', $attendance->id)->latest()->first();
         $response2 = $this->actingAs($admin)->get(route('admin.correction_request.approve_form', ['attendance_correct_request' => $correctionRequest->id]));
 

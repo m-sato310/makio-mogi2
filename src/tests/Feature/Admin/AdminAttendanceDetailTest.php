@@ -5,7 +5,6 @@ namespace Tests\Feature\Admin;
 use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AdminAttendanceDetailTest extends TestCase
@@ -28,7 +27,7 @@ class AdminAttendanceDetailTest extends TestCase
             'clock_out' => '18:00',
         ]);
 
-        $response = $this->actingAs($admin)->get(route('admin.attendance.detail', ['id' => $attendance->id]));
+        $response = $this->actingAs($admin)->get(route('attendance.detail', ['id' => $attendance->id]));
 
         $response->assertSee($user->name)
                 ->assertSee(now()->format('Y年'))
@@ -87,7 +86,7 @@ class AdminAttendanceDetailTest extends TestCase
         $response = $this->actingAs($admin)->post(route('admin.attendance.update', ['id' => $attendance->id]), $data);
 
         $response->assertSessionHasErrors([
-            'new_breaks.0.new_break_start' => '休憩時間が勤務時間外です',
+            'new_breaks.0.new_break_start' => '休憩時間が不適切な値です',
         ]);
     }
 
@@ -115,7 +114,7 @@ class AdminAttendanceDetailTest extends TestCase
         $response = $this->actingAs($admin)->post(route('admin.attendance.update', ['id' => $attendance->id]), $data);
 
         $response->assertSessionHasErrors([
-            'new_breaks.0.new_break_start' => '休憩時間が勤務時間外です',
+            'new_breaks.0.new_break_end' => '休憩時間もしくは退勤時間が不適切な値です',
         ]);
     }
 

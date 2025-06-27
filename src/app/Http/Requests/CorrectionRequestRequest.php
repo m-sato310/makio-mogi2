@@ -67,15 +67,15 @@ class CorrectionRequestRequest extends FormRequest
                     $validator->errors()->add("new_breaks.$i.new_break_start", '休憩開始・終了は両方入力してください');
                 }
                 if ($start && $end && $clockIn && $clockOut) {
-                    if (strtotime($start) < strtotime($clockIn) || strtotime($end) > strtotime($clockOut)) {
-                        $validator->errors()->add("new_breaks.$i.new_break_start", '休憩時間が勤務時間外です');
+                    if (strtotime($start) > strtotime($clockOut)) {
+                        $validator->errors()->add("new_breaks.$i.new_break_start", '休憩時間が不適切な値です');
+                    }
+                    if (strtotime($end) > strtotime($clockOut)) {
+                        $validator->errors()->add("new_breaks.$i.new_break_end", '休憩時間もしくは退勤時間が不適切な値です');
                     }
                     if (strtotime($end) <= strtotime($start)) {
                         $validator->errors()->add("new_breaks.$i.new_break_end", '休憩終了時刻は開始時刻より後にしてください');
                     }
-                    // if (strtotime($start) > strtotime($clockOut)) {
-                    //     $validator->errors()->add("new_breaks.$i.new_break_start", '休憩時間が不適切な値です');
-                    // }
                 }
             }
         });

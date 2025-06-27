@@ -5,10 +5,9 @@ namespace Tests\Feature\Admin;
 use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AttendanceListTest extends TestCase
+class AdminAttendanceListTest extends TestCase
 {
     use RefreshDatabase;
     /**

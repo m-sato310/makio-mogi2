@@ -39,7 +39,7 @@ class AdminCorrectionRequestTest extends TestCase
             'remarks' => 'ユーザー2の申請'
         ]);
 
-        $response = $this->actingAs($admin)->get(route('admin.correction_request.list', ['status' => 'pending']));
+        $response = $this->actingAs($admin)->get(route('correction_request.list', ['status' => 'pending']));
 
         $response->assertSee('ユーザー1の申請');
         $response->assertSee('ユーザー2の申請');
@@ -68,7 +68,7 @@ class AdminCorrectionRequestTest extends TestCase
             'remarks' => 'ユーザー2承認済み'
         ]);
 
-        $response = $this->actingAs($admin)->get(route('admin.correction_request.list', ['status' => 'approved']));
+        $response = $this->actingAs($admin)->get(route('correction_request.list', ['status' => 'approved']));
 
         $response->assertSee('ユーザー1承認済み');
         $response->assertSee('ユーザー2承認済み');

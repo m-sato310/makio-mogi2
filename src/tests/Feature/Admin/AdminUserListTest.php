@@ -119,7 +119,7 @@ class AdminUserListTest extends TestCase
 
         $response = $this->actingAs($admin)->get(route('admin.attendance.staff', ['id' => $user->id]));
 
-        $detailUrl = route('admin.attendance.detail', ['id' => $attendance->id]);
+        $detailUrl = route('attendance.detail', ['id' => $attendance->id]);
         $response->assertSee($detailUrl);
 
         $detailResponse = $this->actingAs($admin)->get($detailUrl);

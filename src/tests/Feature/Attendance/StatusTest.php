@@ -6,7 +6,6 @@ use App\Models\Attendance;
 use App\Models\User;
 use App\Models\WorkBreak;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class StatusTest extends TestCase

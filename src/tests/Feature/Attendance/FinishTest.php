@@ -5,7 +5,6 @@ namespace Tests\Feature\Attendance;
 use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Carbon\Carbon;
 
@@ -28,7 +27,7 @@ class FinishTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->get('/attendance');
-        $response->assertSee('退勤');
+        $response->assertSee('<button class="btn btn-primary js-confirm-clock-out" type="submit">退勤</button>', false);
 
         $response = $this->actingAs($user)->post('/attendance/finish', [
             'attendance_id' => $attendance->id,
