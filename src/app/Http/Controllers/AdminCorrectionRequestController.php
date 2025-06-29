@@ -3,36 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\CorrectionRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Attendance;
 
 class AdminCorrectionRequestController extends Controller
 {
-    // public function listAllApplications(Request $request)
-    // {
-    //     $status = $request->input('status', 'pending');
-
-    //     if ($status === 'approved') {
-    //         $requests = CorrectionRequest::with('user', 'attendance')
-    //             ->where('approval_status', 'approved')
-    //             ->orderByDesc('approved_at')
-    //             ->get();
-    //     } else {
-    //         $requests = CorrectionRequest::with('user', 'attendance')
-    //             ->where('approval_status', 'pending')
-    //             ->orderBy('created_at', 'asc')
-    //             ->orderBy(
-    //                 Attendance::select('work_date')
-    //                     ->whereColumn('attendances.id', 'correction_requests.attendance_id'),
-    //                 'asc'
-    //             )
-    //             ->get();
-    //     }
-
-    //     return view('admin.correction_request.list', compact('requests', 'status'));
-    // }
-
     public function showApproveRequestForm($attendance_correct_request)
     {
         $request = CorrectionRequest::with(['user', 'attendance.workBreaks', 'correctionBreaks'])->findOrFail($attendance_correct_request);
@@ -46,7 +20,6 @@ class AdminCorrectionRequestController extends Controller
 
         $isApproved = $request->approval_status === 'approved';
 
-        // 管理者用Bladeを明示的に指定
         return view('admin.attendance.detail', compact(
             'request',
             'attendance',

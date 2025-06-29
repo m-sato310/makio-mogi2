@@ -47,33 +47,13 @@ class CorrectionRequestController extends Controller
 
             DB::commit();
 
-            return redirect()->route('attendance.detail', ['id' => $attendanceId])
-                ->with('status', '修正申請を受け付けました。管理者の承認をお待ちください。');
+            return redirect()->route('attendance.detail', ['id' => $attendanceId]);
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('attendance.detail', ['id' => $attendanceId])
-                ->withErrors(['エラーが発生しました。再度お試しください。', $e->getMessage()]);
+                ->withErrors(['エラーが発生しました。再度お試しください。']);
         }
     }
-
-    // public function listMyApplications()
-    // {
-    //     $userId = Auth::id();
-
-    //     $pendingList = CorrectionRequest::with('attendance', 'user')
-    //         ->where('user_id', $userId)
-    //         ->where('approval_status', 'pending')
-    //         ->orderByDesc('created_at')
-    //         ->get();
-
-    //     $approvedList = CorrectionRequest::with('attendance', 'user')
-    //         ->where('user_id', $userId)
-    //         ->where('approval_status', 'approved')
-    //         ->orderByDesc('created_at')
-    //         ->get();
-
-    //     return view('correction_request.list', compact('pendingList', 'approvedList'));
-    // }
 
     public function listApplications(Request $request)
     {
@@ -81,7 +61,6 @@ class CorrectionRequestController extends Controller
         $status = $request->input('status', 'pending');
 
         if ($user->is_admin) {
-            // 管理者：全ユーザー分
             $requests = CorrectionRequest::with('attendance', 'user')
                 ->where('approval_status', $status)
                 ->orderByDesc('created_at')
@@ -89,7 +68,6 @@ class CorrectionRequestController extends Controller
 
             return view('admin.correction_request.list', compact('requests', 'status'));
         } else {
-            // 一般ユーザー：自分の分だけ
             $pendingList = CorrectionRequest::with('attendance', 'user')
                 ->where('user_id', $user->id)
                 ->where('approval_status', 'pending')

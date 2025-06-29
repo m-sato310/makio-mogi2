@@ -67,7 +67,7 @@ class CorrectionRequestRequest extends FormRequest
                     $validator->errors()->add("new_breaks.$i.new_break_start", '休憩開始・終了は両方入力してください');
                 }
                 if ($start && $end && $clockIn && $clockOut) {
-                    if (strtotime($start) > strtotime($clockOut)) {
+                    if (strtotime($start) < strtotime($clockIn) || strtotime($start) > strtotime($clockOut)) {
                         $validator->errors()->add("new_breaks.$i.new_break_start", '休憩時間が不適切な値です');
                     }
                     if (strtotime($end) > strtotime($clockOut)) {

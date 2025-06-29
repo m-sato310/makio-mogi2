@@ -198,39 +198,10 @@ class AttendanceController extends Controller
         return view('attendance.list', compact('attendanceSummary', 'daysInMonth', 'year', 'month'));
     }
 
-    // public function showMyAttendanceDetail($id)
-    // {
-    //     $user = Auth::user();
-
-    //     $attendance = Attendance::with(['workBreaks', 'correctionRequests'])
-    //         ->where('id', $id)
-    //         ->where('user_id', $user->id)
-    //         ->firstOrFail();
-
-    //     $correctionRequest = $attendance->correctionRequests()
-    //         ->with('correctionBreaks')
-    //         ->where('user_id', $user->id)
-    //         ->orderByDesc('created_at')
-    //         ->first();
-
-    //     $isPending = $correctionRequest && $correctionRequest->approval_status === 'pending';
-
-    //     if ($correctionRequest && $correctionRequest->correctionBreaks->isNotEmpty()) {
-    //         $breaks = $correctionRequest->correctionBreaks;
-    //     } elseif ($attendance->workBreaks->isNotEmpty()) {
-    //         $breaks = $attendance->workBreaks;
-    //     } else {
-    //         $breaks = collect();
-    //     }
-
-    //     return view('attendance.detail', compact('attendance', 'breaks', 'correctionRequest', 'isPending'));
-    // }
-
     public function showAttendanceDetail($id)
     {
         $user = Auth::user();
         if ($user->is_admin) {
-            // 管理者用の処理
             $attendance = Attendance::with(['user', 'workBreaks', 'correctionRequests'])->findOrFail($id);
             $correctionRequest = $attendance->correctionRequests()->orderByDesc('created_at')->first();
             $breaks = $attendance->workBreaks;
@@ -238,7 +209,6 @@ class AttendanceController extends Controller
             $isAdmin = true;
             return view('attendance.detail', compact('attendance', 'isPending', 'correctionRequest', 'breaks', 'isAdmin'));
         } else {
-            // 一般ユーザー用の処理
             $attendance = Attendance::with(['workBreaks', 'correctionRequests'])
                 ->where('id', $id)
                 ->where('user_id', $user->id)

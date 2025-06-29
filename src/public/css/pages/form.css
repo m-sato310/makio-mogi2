@@ -3,7 +3,6 @@
     margin: 200px auto 0 auto;
     background: #F0EFF2;
     border-radius: 10px;
-    /* box-shadow: 0 4px 24px 0 rgba(0,0,0,0.04); */
     padding: 32px 20px;
     box-sizing: border-box;
     text-align: center;
@@ -77,8 +76,8 @@
     border-radius: 10px;
     font-weight: 700;
 
-    min-width: 170px;          /* 最小幅を指定（例:170px。お好みで調整） */
-    box-sizing: border-box;    /* 必須 */
+    min-width: 170px;
+    box-sizing: border-box;
     text-align: center;
 }
 

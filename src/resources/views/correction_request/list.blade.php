@@ -40,24 +40,24 @@
                 $list = $tab === 'pending' ? $pendingList : $approvedList;
             @endphp
             @forelse ($list as $req)
-            <tr>
-                <td>{{ $req->approval_status === 'pending' ? '承認待ち' : '承認済み' }}</td>
-                <td>{{ $req->user->name ?? '' }}</td>
-                <td class="date-cell">
-                    {{ $req->attendance->work_date ? \Carbon\Carbon::parse($req->attendance->work_date)->format('Y/m/d') : '' }}
-                </td>
-                <td>
-                    {{ \Illuminate\Support\Str::limit($req->remarks ?? '', 20, '…') }}
-                </td>
-                <td class="date-cell">{{ $req->created_at ? \Carbon\Carbon::parse($req->created_at)->format('Y/m/d') : '' }}</td>
-                <td>
-                    <a class="detail-link" href="{{ route('attendance.detail', ['id' => $req->attendance->id]) }}">詳細</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ $req->approval_status === 'pending' ? '承認待ち' : '承認済み' }}</td>
+                    <td>{{ $req->user->name ?? '' }}</td>
+                    <td class="date-cell">
+                        {{ $req->attendance->work_date ? \Carbon\Carbon::parse($req->attendance->work_date)->format('Y/m/d') : '' }}
+                    </td>
+                    <td>
+                        {{ \Illuminate\Support\Str::limit($req->remarks ?? '', 20, '…') }}
+                    </td>
+                    <td class="date-cell">{{ $req->created_at ? \Carbon\Carbon::parse($req->created_at)->format('Y/m/d') : '' }}</td>
+                    <td>
+                        <a class="detail-link" href="{{ route('attendance.detail', ['id' => $req->attendance->id]) }}">詳細</a>
+                    </td>
+                </tr>
             @empty
-            <tr>
-                <td colspan="6">データがありません</td>
-            </tr>
+                <tr>
+                    <td colspan="6">データがありません</td>
+                </tr>
             @endforelse
         </tbody>
     </table>

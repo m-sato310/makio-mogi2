@@ -43,37 +43,37 @@
         </thead>
         <tbody>
             @foreach ($daysInMonth as $date)
-            @php
-            $workDate = $date->format('Y-m-d');
-            $summary = $attendanceSummary[$workDate] ?? null;
-            $attendance = $summary['attendance'] ?? null;
-            $breakMinutes = $summary['breakMinutes'] ?? 0;
-            $workMinutes = $summary['workMinutes'];
-            @endphp
-            <tr>
-                <td>
-                    {{ $date->format('m/d') }}({{ $date->locale('ja')->isoFormat('dd') }})
-                </td>
-                <td>
-                    {{ $attendance && $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '' }}
-                </td>
-                <td>
-                    {{ $attendance && $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}
-                </td>
-                <td>
-                    {{ $breakMinutes ? floor($breakMinutes/60).':'.str_pad($breakMinutes%60,2,'0',STR_PAD_LEFT) : '' }}
-                </td>
-                <td>
-                    {{ $workMinutes !== null ? floor($workMinutes/60).':'.str_pad($workMinutes%60,2,'0',STR_PAD_LEFT) : '' }}
-                </td>
-                <td>
-                    @if($attendance)
-                    <a href="{{ route('attendance.detail', ['id' => $attendance->id]) }}">詳細</a>
-                    @else
-                    <span class="disabled-link">詳細</span>
-                    @endif
-                </td>
-            </tr>
+                @php
+                $workDate = $date->format('Y-m-d');
+                $summary = $attendanceSummary[$workDate] ?? null;
+                $attendance = $summary['attendance'] ?? null;
+                $breakMinutes = $summary['breakMinutes'] ?? 0;
+                $workMinutes = $summary['workMinutes'];
+                @endphp
+                <tr>
+                    <td>
+                        {{ $date->format('m/d') }}({{ $date->locale('ja')->isoFormat('dd') }})
+                    </td>
+                    <td>
+                        {{ $attendance && $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '' }}
+                    </td>
+                    <td>
+                        {{ $attendance && $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}
+                    </td>
+                    <td>
+                        {{ $breakMinutes ? floor($breakMinutes/60).':'.str_pad($breakMinutes%60,2,'0',STR_PAD_LEFT) : '' }}
+                    </td>
+                    <td>
+                        {{ $workMinutes !== null ? floor($workMinutes/60).':'.str_pad($workMinutes%60,2,'0',STR_PAD_LEFT) : '' }}
+                    </td>
+                    <td>
+                        @if($attendance)
+                            <a href="{{ route('attendance.detail', ['id' => $attendance->id]) }}">詳細</a>
+                        @else
+                            <span class="disabled-link">詳細</span>
+                        @endif
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>

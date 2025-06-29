@@ -25,13 +25,13 @@
         </thead>
         <tbody>
             @foreach ($staffs as $staff)
-            <tr>
-                <td>{{ $staff->name }}</td>
-                <td>{{ $staff->email }}</td>
-                <td>
-                    <a href="{{ route('admin.attendance.staff',['id' => $staff->id]) }}">詳細</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ $staff->name }}</td>
+                    <td>{{ $staff->email }}</td>
+                    <td>
+                        <a href="{{ route('admin.attendance.staff',['id' => $staff->id]) }}">詳細</a>
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>

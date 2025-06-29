@@ -39,32 +39,32 @@
         </thead>
         <tbody>
             @forelse ($requests as $request)
-            <tr>
-                <td>
-                    @if($request->approval_status === 'pending')
-                    承認待ち
-                    @elseif($request->approval_status === 'approved')
-                    承認済み
-                    @else
-                    {{ $request->approval_status }}
-                    @endif
-                </td>
-                <td>{{ $request->user->name ?? '-' }}</td>
-                <td class="no-letter-spacing">
-                    {{ $request->attendance->work_date ? \Carbon\Carbon::parse($request->attendance->work_date)->format('Y/m/d') : '-' }}
-                </td>
-                <td>
-                    {{ \Illuminate\Support\Str::limit($request->remarks ?? '-', 20, '…') }}
-                </td>
-                <td class="no-letter-spacing">{{ $request->created_at ? \Carbon\Carbon::parse($request->created_at)->format('Y/m/d') : '-' }}</td>
-                <td>
-                    <a href="{{ route('admin.correction_request.approve_form', ['attendance_correct_request' => $request->id]) }}">詳細</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @if($request->approval_status === 'pending')
+                            承認待ち
+                        @elseif($request->approval_status === 'approved')
+                            承認済み
+                        @else
+                            {{ $request->approval_status }}
+                        @endif
+                    </td>
+                    <td>{{ $request->user->name ?? '-' }}</td>
+                    <td class="no-letter-spacing">
+                        {{ $request->attendance->work_date ? \Carbon\Carbon::parse($request->attendance->work_date)->format('Y/m/d') : '-' }}
+                    </td>
+                    <td>
+                        {{ \Illuminate\Support\Str::limit($request->remarks ?? '-', 20, '…') }}
+                    </td>
+                    <td class="no-letter-spacing">{{ $request->created_at ? \Carbon\Carbon::parse($request->created_at)->format('Y/m/d') : '-' }}</td>
+                    <td>
+                        <a href="{{ route('admin.correction_request.approve_form', ['attendance_correct_request' => $request->id]) }}">詳細</a>
+                    </td>
+                </tr>
             @empty
-            <tr>
-                <td colspan="6">該当する申請はありません。</td>
-            </tr>
+                <tr>
+                    <td colspan="6">該当する申請はありません。</td>
+                </tr>
             @endforelse
         </tbody>
     </table>

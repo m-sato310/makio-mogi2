@@ -27,43 +27,43 @@
 
     <div class="attendance-actions">
         @if ($status === '勤務外')
-        <form action="{{ route('attendance.start') }}" method="POST">
-            @csrf
-            <button class="btn btn-primary js-confirm-clock-in" type="submit">出勤</button>
-        </form>
+            <form action="{{ route('attendance.start') }}" method="POST">
+                @csrf
+                <button class="btn btn-primary js-confirm-clock-in" type="submit">出勤</button>
+            </form>
         @elseif ($status === '出勤中')
-        <form action="{{ route('attendance.finish') }}" method="POST">
-            @csrf
-            <button class="btn btn-primary js-confirm-clock-out" type="submit">退勤</button>
-        </form>
-        <form action="{{ route('attendance.break_start') }}" method="POST">
-            @csrf
-            <button class="btn btn-secondary js-confirm-break-start" type="submit">休憩入</button>
-        </form>
+            <form action="{{ route('attendance.finish') }}" method="POST">
+                @csrf
+                <button class="btn btn-primary js-confirm-clock-out" type="submit">退勤</button>
+            </form>
+            <form action="{{ route('attendance.break_start') }}" method="POST">
+                @csrf
+                <button class="btn btn-secondary js-confirm-break-start" type="submit">休憩入</button>
+            </form>
         @elseif ($status === '休憩中')
-        <form action="{{ route('attendance.break_end') }}" method="POST">
-            @csrf
-            <button class="btn btn-secondary js-confirm-break-end" type="submit">休憩戻</button>
-        </form>
+            <form action="{{ route('attendance.break_end') }}" method="POST">
+                @csrf
+                <button class="btn btn-secondary js-confirm-break-end" type="submit">休憩戻</button>
+            </form>
         @elseif ($status === '退勤済')
-        <div class="attendance-message">お疲れ様でした。</div>
+            <div class="attendance-message">お疲れ様でした。</div>
         @endif
     </div>
 
     @if ($errors->any())
-    <div class="attendance-errors">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <div class="error">{{ $error }}</div>
-            @endforeach
-        </ul>
-    </div>
+        <div class="attendance-errors">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <div class="error">{{ $error }}</div>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     @if (session('status'))
-    <div class="attendance-flash">
-        {{ session('status' )}}
-    </div>
+        <div class="attendance-flash">
+            {{ session('status' )}}
+        </div>
     @endif
 </div>
 @endsection

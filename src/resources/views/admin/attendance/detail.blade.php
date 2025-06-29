@@ -51,24 +51,24 @@
         </div>
 
         @foreach ($breaks as $i => $break)
-        <div class="attendance-detail-row">
-            <span class="attendance-detail-label">
-                {{ $i === 0 ? '休憩' : '休憩' . ($i + 1) }}
-            </span>
-            <div class="attendance-detail-inputs">
-                <span class="attendance-detail-value">
-                    {{ $break->new_break_start
-                        ? \Carbon\Carbon::parse($break->new_break_start)->format('H:i')
-                        : ($break->break_start ? \Carbon\Carbon::parse($break->break_start)->format('H:i') : '') }}
+            <div class="attendance-detail-row">
+                <span class="attendance-detail-label">
+                    {{ $i === 0 ? '休憩' : '休憩' . ($i + 1) }}
                 </span>
-                <span class="attendance-detail-separator">〜</span>
-                <span class="attendance-detail-value">
-                    {{ $break->new_break_end
-                        ? \Carbon\Carbon::parse($break->new_break_end)->format('H:i')
-                        : ($break->break_end ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '') }}
-                </span>
+                <div class="attendance-detail-inputs">
+                    <span class="attendance-detail-value">
+                        {{ $break->new_break_start
+                            ? \Carbon\Carbon::parse($break->new_break_start)->format('H:i')
+                            : ($break->break_start ? \Carbon\Carbon::parse($break->break_start)->format('H:i') : '') }}
+                    </span>
+                    <span class="attendance-detail-separator">〜</span>
+                    <span class="attendance-detail-value">
+                        {{ $break->new_break_end
+                            ? \Carbon\Carbon::parse($break->new_break_end)->format('H:i')
+                            : ($break->break_end ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '') }}
+                    </span>
+                </div>
             </div>
-        </div>
         @endforeach
 
         <div class="attendance-detail-row note-row">
