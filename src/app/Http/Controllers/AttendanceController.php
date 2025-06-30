@@ -198,14 +198,20 @@ class AttendanceController extends Controller
         return view('attendance.list', compact('attendanceSummary', 'daysInMonth', 'year', 'month'));
     }
 
-    public function showAttendanceDetail($id)
+    public function showAttendanceDetail($id, Request $request)
     {
         $user = Auth::user();
+        $correctionRequestId = $request->input('correction_request_id');
+
         if ($user->is_admin) {
             $attendance = Attendance::with(['user', 'workBreaks', 'correctionRequests'])->findOrFail($id);
-            $correctionRequest = $attendance->correctionRequests()->orderByDesc('created_at')->first();
-            $breaks = $attendance->workBreaks;
-            $isPending = false;
+            if ($correctionRequestId) {
+                $correctionRequest = $attendance->correctionRequests()->with('correctionBreaks')->findOrFail($correctionRequestId);
+            } else {
+                $correctionRequest = $attendance->correctionRequests()->orderByDesc('created_at')->first();
+            }
+            $breaks = $correctionRequest ? $correctionRequest->correctionBreaks : collect();
+            $isPending = $correctionRequest && $correctionRequest->approval_status === 'pending';
             $isAdmin = true;
             return view('attendance.detail', compact('attendance', 'isPending', 'correctionRequest', 'breaks', 'isAdmin'));
         } else {
@@ -213,19 +219,17 @@ class AttendanceController extends Controller
                 ->where('id', $id)
                 ->where('user_id', $user->id)
                 ->firstOrFail();
-            $correctionRequest = $attendance->correctionRequests()
-                ->with('correctionBreaks')
-                ->where('user_id', $user->id)
-                ->orderByDesc('created_at')
-                ->first();
-            $isPending = $correctionRequest && $correctionRequest->approval_status === 'pending';
-            if ($correctionRequest && $correctionRequest->correctionBreaks->isNotEmpty()) {
-                $breaks = $correctionRequest->correctionBreaks;
-            } elseif ($attendance->workBreaks->isNotEmpty()) {
-                $breaks = $attendance->workBreaks;
+            if ($correctionRequestId) {
+                $correctionRequest = $attendance->correctionRequests()->with('correctionBreaks')->findOrFail($correctionRequestId);
             } else {
-                $breaks = collect();
+                $correctionRequest = $attendance->correctionRequests()
+                    ->with('correctionBreaks')
+                    ->where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->first();
             }
+            $breaks = $correctionRequest ? $correctionRequest->correctionBreaks : collect();
+            $isPending = $correctionRequest && $correctionRequest->approval_status === 'pending';
             $isAdmin = false;
             return view('attendance.detail', compact('attendance', 'breaks', 'correctionRequest', 'isPending', 'isAdmin'));
         }

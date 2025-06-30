@@ -51,7 +51,7 @@
                     </td>
                     <td class="date-cell">{{ $req->created_at ? \Carbon\Carbon::parse($req->created_at)->format('Y/m/d') : '' }}</td>
                     <td>
-                        <a class="detail-link" href="{{ route('attendance.detail', ['id' => $req->attendance->id]) }}">詳細</a>
+                        <a class="detail-link" href="{{ route('attendance.detail', ['id' => $req->attendance->id, 'correction_request_id' => $req->id]) }}">詳細</a>
                     </td>
                 </tr>
             @empty
