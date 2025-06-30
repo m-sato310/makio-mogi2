@@ -210,7 +210,7 @@ class AttendanceController extends Controller
             } else {
                 $correctionRequest = $attendance->correctionRequests()->orderByDesc('created_at')->first();
             }
-            $breaks = $correctionRequest ? $correctionRequest->correctionBreaks : collect();
+            $breaks = $correctionRequest ? $correctionRequest->correctionBreaks : $attendance->workBreaks;
             $isPending = $correctionRequest && $correctionRequest->approval_status === 'pending';
             $isAdmin = true;
             return view('attendance.detail', compact('attendance', 'isPending', 'correctionRequest', 'breaks', 'isAdmin'));
@@ -228,7 +228,7 @@ class AttendanceController extends Controller
                     ->orderByDesc('created_at')
                     ->first();
             }
-            $breaks = $correctionRequest ? $correctionRequest->correctionBreaks : collect();
+            $breaks = $correctionRequest ? $correctionRequest->correctionBreaks : $attendance->workBreaks;
             $isPending = $correctionRequest && $correctionRequest->approval_status === 'pending';
             $isAdmin = false;
             return view('attendance.detail', compact('attendance', 'breaks', 'correctionRequest', 'isPending', 'isAdmin'));
