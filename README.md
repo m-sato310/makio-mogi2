@@ -49,6 +49,13 @@ php artisan migrate
 php artisan db:seed
 ```
 
+> *"The stream or file could not be opened"エラーが発生した場合
+srcディレクトリにあるstorageディレクトリ以下の権限を変更*
+``` bash
+chmod -R 777 storage
+```
+
+
 ## メール認証機能(新規ユーザー登録時)
 使用サービス:Mailtrap https://mailtrap.io/
 
@@ -124,5 +131,7 @@ php artisan test tests/Feature
 ![ER図](ER.drawio.png)
 
 ## URL
-- 開発環境：http://localhost/
+- 一般ユーザー登録 : http://localhost/register/
+- 一般ユーザーログイン : http://localhost/login/
+- 管理ユーザーログイン : http://localhost/admin/login/
 - phpMyAdmin:：http://localhost:8080/
